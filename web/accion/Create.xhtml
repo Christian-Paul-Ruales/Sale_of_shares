@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAccionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_idAccion}" for="idAccion" />
+                    <h:inputText id="idAccion" value="#{accionController.selected.idAccion}" title="#{bundle.CreateAccionTitle_idAccion}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_idAccion}"/>
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{accionController.selected.descripcion}" title="#{bundle.CreateAccionTitle_descripcion}" />
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_estadoAccion}" for="estadoAccion" />
+                    <h:inputText id="estadoAccion" value="#{accionController.selected.estadoAccion}" title="#{bundle.CreateAccionTitle_estadoAccion}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_estadoAccion}"/>
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_valorPorcentual}" for="valorPorcentual" />
+                    <h:inputText id="valorPorcentual" value="#{accionController.selected.valorPorcentual}" title="#{bundle.CreateAccionTitle_valorPorcentual}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_valorPorcentual}"/>
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_valorNominal}" for="valorNominal" />
+                    <h:inputText id="valorNominal" value="#{accionController.selected.valorNominal}" title="#{bundle.CreateAccionTitle_valorNominal}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_valorNominal}"/>
+                    <h:outputLabel value="#{bundle.CreateAccionLabel_idUsuario}" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{accionController.selected.idUsuario}" title="#{bundle.CreateAccionTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_idUsuario}">
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{accionController.create}" value="#{bundle.CreateAccionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{accionController.prepareList}" value="#{bundle.CreateAccionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAccionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

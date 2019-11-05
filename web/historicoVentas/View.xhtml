@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewHistoricoVentasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_idVentas}"/>
+                    <h:outputText value="#{historicoVentasController.selected.idVentas}" title="#{bundle.ViewHistoricoVentasTitle_idVentas}"/>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_fechaVenta}"/>
+                    <h:outputText value="#{historicoVentasController.selected.fechaVenta}" title="#{bundle.ViewHistoricoVentasTitle_fechaVenta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_estadoActual}"/>
+                    <h:outputText value="#{historicoVentasController.selected.estadoActual}" title="#{bundle.ViewHistoricoVentasTitle_estadoActual}"/>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_valorVenta}"/>
+                    <h:outputText value="#{historicoVentasController.selected.valorVenta}" title="#{bundle.ViewHistoricoVentasTitle_valorVenta}"/>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_valorReal}"/>
+                    <h:outputText value="#{historicoVentasController.selected.valorReal}" title="#{bundle.ViewHistoricoVentasTitle_valorReal}"/>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_idAccion}"/>
+                    <h:outputText value="#{historicoVentasController.selected.idAccion}" title="#{bundle.ViewHistoricoVentasTitle_idAccion}"/>
+                    <h:outputText value="#{bundle.ViewHistoricoVentasLabel_idUsuario}"/>
+                    <h:outputText value="#{historicoVentasController.selected.idUsuario}" title="#{bundle.ViewHistoricoVentasTitle_idUsuario}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{historicoVentasController.destroyAndView}" value="#{bundle.ViewHistoricoVentasDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewHistoricoVentasEditLink}"/>
+                <br />
+                <h:commandLink action="#{historicoVentasController.prepareCreate}" value="#{bundle.ViewHistoricoVentasCreateLink}" />
+                <br />
+                <h:commandLink action="#{historicoVentasController.prepareList}" value="#{bundle.ViewHistoricoVentasShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewHistoricoVentasIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMetodoPagoUsuariosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMetodoPagoUsuariosLabel_identificador}" for="identificador" />
+                    <h:inputText id="identificador" value="#{metodoPagoUsuariosController.selected.identificador}" title="#{bundle.CreateMetodoPagoUsuariosTitle_identificador}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_identificador}"/>
+                    <h:outputLabel value="#{bundle.CreateMetodoPagoUsuariosLabel_clave}" for="clave" />
+                    <h:inputText id="clave" value="#{metodoPagoUsuariosController.selected.clave}" title="#{bundle.CreateMetodoPagoUsuariosTitle_clave}" />
+                    <h:outputLabel value="#{bundle.CreateMetodoPagoUsuariosLabel_metodoPago}" for="metodoPago" />
+                    <h:selectOneMenu id="metodoPago" value="#{metodoPagoUsuariosController.selected.metodoPago}" title="#{bundle.CreateMetodoPagoUsuariosTitle_metodoPago}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_metodoPago}">
+                        <f:selectItems value="#{metodoPagoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateMetodoPagoUsuariosLabel_usuario}" for="usuario" />
+                    <h:selectOneMenu id="usuario" value="#{metodoPagoUsuariosController.selected.usuario}" title="#{bundle.CreateMetodoPagoUsuariosTitle_usuario}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_usuario}">
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{metodoPagoUsuariosController.create}" value="#{bundle.CreateMetodoPagoUsuariosSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{metodoPagoUsuariosController.prepareList}" value="#{bundle.CreateMetodoPagoUsuariosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMetodoPagoUsuariosIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

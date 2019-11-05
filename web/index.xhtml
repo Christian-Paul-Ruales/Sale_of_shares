@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Vende y Compra Acciones</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+
+        <h:outputStylesheet name="css/bootstrap.min.css" />
+        <h:outputStylesheet name="css/mystyles.css"></h:outputStylesheet>
+
+
+    </h:head>
+    <h:body>
+        <ui:composition template="./templates/navbar.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./components/carrousel.xhtml"></ui:include>
+                <div class="container" >
+                    <h:panelGrid columns="3" cellpadding = "30" cellspacing = "10" style="position: absolute; top: 350px; z-index: 99;">
+                        <h:link outcome="index" class="btn btn-light" style="border-radius: 0" >
+                            <h:graphicImage  value="resources/img/Acciones.png" width="65%" height="200px" ></h:graphicImage>
+                                <br/>
+                                Comprar Acciones
+                        </h:link>
+                        <h:link outcome="index" class="btn btn-light" >
+                            <h:graphicImage  value="resources/img/monitoriza.png" width="65%" height="200px" ></h:graphicImage>
+                                <br/>
+                                Comprar Acciones
+                        </h:link>
+                        <h:link outcome="index" class="btn btn-light" >
+                            <h:graphicImage  value="resources/img/Acciones.png" width="65%" height="200px" ></h:graphicImage>
+                                <br/>
+                                Comprar Acciones
+                        </h:link>
+
+                    </h:panelGrid>
+
+                </div>
+                <h:link outcome="/accion/List" value="Show All Accion Items"/>
+                <br />
+                <h:link outcome="/historicoVentas/List" value="Show All HistoricoVentas Items"/>
+                <br />
+                <h:link outcome="/metodoPago/List" value="Show All MetodoPago Items"/>
+                <br />
+                <h:link outcome="/metodoPagoUsuarios/List" value="Show All MetodoPagoUsuarios Items"/>
+                <br />
+                <h:link outcome="/tipoUsuario/List" value="Show All TipoUsuario Items"/>
+                <br />
+                <h:link outcome="/usuario/List" value="Show All Usuario Items"/>
+            </ui:define>
+        </ui:composition>
+        
+
+
+        <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
+            <br />
+        
+    </h:body>
+
+
+
+
+
+
+
+</html>
+

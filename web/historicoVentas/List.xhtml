@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHistoricoVentasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListHistoricoVentasEmpty}" rendered="#{historicoVentasController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{historicoVentasController.items.rowCount > 0}">
+                    <h:outputText value="#{historicoVentasController.pagination.pageFirstItem + 1}..#{historicoVentasController.pagination.pageLastItem + 1}/#{historicoVentasController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{historicoVentasController.previous}" value="#{bundle.Previous} #{historicoVentasController.pagination.pageSize}" rendered="#{historicoVentasController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{historicoVentasController.next}" value="#{bundle.Next} #{historicoVentasController.pagination.pageSize}" rendered="#{historicoVentasController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{historicoVentasController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_idVentas}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVentas}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_fechaVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaVenta}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_estadoActual}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoActual}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_valorVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorVenta}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_valorReal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorReal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_idAccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAccion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoVentasTitle_idUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{historicoVentasController.prepareView}" value="#{bundle.ListHistoricoVentasViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{historicoVentasController.prepareEdit}" value="#{bundle.ListHistoricoVentasEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{historicoVentasController.destroy}" value="#{bundle.ListHistoricoVentasDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{historicoVentasController.prepareCreate}" value="#{bundle.ListHistoricoVentasCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListHistoricoVentasIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
