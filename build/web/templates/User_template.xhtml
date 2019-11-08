@@ -52,11 +52,27 @@
                         </li>
                       </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
+                            <li class="nav-item">
+                                
+                                <h:outputText value="#{usuarioController.LoggedUser().nombre}"></h:outputText>
+                            </li>
+                            <li class="nav-item " >
+                                <h:form>
+                                    
+
+                                    <h:commandButton  rendered="#{usuarioController.LoggedUser().idTipousuario.descripcion=='Empresa'}" class="nav-link" value="Venta Acciones" action="/accion/Create?faces-redirect=true"> </h:commandButton>
+                                    
+
+                                </h:form>
+                                
+                                
+                                
+                                
+                            </li>
                             <li class="nav-item ">
                                 <h:form>
-
-
-                                    <h:commandButton class="nav-link" actionListener="#{usuarioController.CloseSession()}" value="Cerrar Sesion" action="login?faces-redirect=true"> </h:commandButton>
+                                    
+                                    <h:commandLink class="nav-link" actionListener="#{usuarioController.CloseSession()}" value="Cerrar Sesion" action="/login?faces-redirect=true"> </h:commandLink>
 
                                 </h:form>
                                 

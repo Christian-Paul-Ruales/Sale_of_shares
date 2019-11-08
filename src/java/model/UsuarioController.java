@@ -130,10 +130,21 @@ public class UsuarioController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().invalidateSession();
         } catch (Exception e) {
+
             System.out.println("   ----------------------------------Error Cerrar sesion:"+e.getMessage());
         }
         
         
+    }
+    public Usuario LoggedUser(){
+        Usuario us = new Usuario();
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+             us= (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        } catch (Exception e) {
+            
+        }
+        return us;
     }
     public String create() {
         try {

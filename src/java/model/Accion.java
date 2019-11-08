@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import javax.faces.context.FacesContext;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -128,6 +129,7 @@ public class Accion implements Serializable {
     }
 
     public void setIdUsuario(Usuario idUsuario) {
+        
         this.idUsuario = idUsuario;
     }
 

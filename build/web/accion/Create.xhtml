@@ -3,32 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="./../templates/User_template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateAccionTitle}"></h:outputText>
+            <h:outputText value="Vender Acciones"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+        
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateAccionLabel_idAccion}" for="idAccion" />
-                    <h:inputText id="idAccion" value="#{accionController.selected.idAccion}" title="#{bundle.CreateAccionTitle_idAccion}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_idAccion}"/>
+                    <h:outputLabel value="Numero de Acciones a vender" for="txt1" />
+                   
+                    <h:panelGrid columns="1" style="margin-bottom: 10px">
+                        <h:inputText id="txt1" value="#{accionController.number_Accions}" />
+                        <p:slider for="txt1" minValue="1" />
+                    </h:panelGrid>
+                    
                     <h:outputLabel value="#{bundle.CreateAccionLabel_descripcion}" for="descripcion" />
                     <h:inputText id="descripcion" value="#{accionController.selected.descripcion}" title="#{bundle.CreateAccionTitle_descripcion}" />
-                    <h:outputLabel value="#{bundle.CreateAccionLabel_estadoAccion}" for="estadoAccion" />
-                    <h:inputText id="estadoAccion" value="#{accionController.selected.estadoAccion}" title="#{bundle.CreateAccionTitle_estadoAccion}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_estadoAccion}"/>
-                    <h:outputLabel value="#{bundle.CreateAccionLabel_valorPorcentual}" for="valorPorcentual" />
-                    <h:inputText id="valorPorcentual" value="#{accionController.selected.valorPorcentual}" title="#{bundle.CreateAccionTitle_valorPorcentual}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_valorPorcentual}"/>
+                        <h:outputLabel value="Porcentaje por Accion:" for="valorPorcentual" />
+                    <h:panelGrid columns="1" style="margin-bottom: 10px">
+                        <h:inputText id="valorPorcentual" value="#{accionController.selected.valorPorcentual}" />
+                        <p:slider for="valorPorcentual" minValue="0.1" maxValue="100" step="0.1" />
+                    </h:panelGrid>
+                    
                     <h:outputLabel value="#{bundle.CreateAccionLabel_valorNominal}" for="valorNominal" />
                     <h:inputText id="valorNominal" value="#{accionController.selected.valorNominal}" title="#{bundle.CreateAccionTitle_valorNominal}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_valorNominal}"/>
-                    <h:outputLabel value="#{bundle.CreateAccionLabel_idUsuario}" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" value="#{accionController.selected.idUsuario}" title="#{bundle.CreateAccionTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateAccionRequiredMessage_idUsuario}">
-                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                   
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{accionController.create}" value="#{bundle.CreateAccionSaveLink}" />

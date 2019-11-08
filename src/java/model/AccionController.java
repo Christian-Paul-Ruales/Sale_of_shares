@@ -19,13 +19,14 @@ import javax.faces.model.SelectItem;
 @Named("accionController")
 @SessionScoped
 public class AccionController implements Serializable {
-
+    
     private Accion current;
     private DataModel items = null;
     @EJB
     private model.AccionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Integer Number_Accions;
 
     public AccionController() {
     }
@@ -42,6 +43,17 @@ public class AccionController implements Serializable {
         return ejbFacade;
     }
 
+    public Integer getNumber_Accions() {
+        return Number_Accions;
+    }
+
+    public void setNumber_Accions(Integer Number_Accions) {
+        this.Number_Accions = Number_Accions;
+    }
+
+    
+
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -53,6 +65,7 @@ public class AccionController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
+                    
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
@@ -60,6 +73,26 @@ public class AccionController implements Serializable {
         return pagination;
     }
 
+    public PaginationHelper getPaginationbyId() {
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    FacesContext context= FacesContext.getCurrentInstance();
+                
+                    Usuario us=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
+                    return new ListDataModel(getFacade().findAccionsbyIdUser(us,new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                }
+            };
+        }
+        return pagination;
+    }
     public String prepareList() {
         recreateModel();
         return "List";
@@ -78,10 +111,23 @@ public class AccionController implements Serializable {
     }
 
     public String create() {
+        
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionCreated"));
-            return prepareCreate();
+            try {
+                FacesContext context= FacesContext.getCurrentInstance();
+                
+                 Usuario us=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
+                 current.setIdUsuario(us);
+                 current.setEstadoAccion(true);
+            } catch (Exception e) {
+            }
+            
+            for (int i = 0; i < this.Number_Accions; i++) {
+               getFacade().create(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionCreated"));
+              
+            }
+           return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -154,6 +200,12 @@ public class AccionController implements Serializable {
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+     public DataModel getItemsById() {
+        if (items == null) {
+            items = getPaginationbyId().createPageDataModel();
         }
         return items;
     }
