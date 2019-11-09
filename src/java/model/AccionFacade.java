@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,6 +39,22 @@ public class AccionFacade extends AbstractFacade<Accion> {
         createQuery.setMaxResults(range[1] - range[0] + 1);
         createQuery.setFirstResult(range[0]);
         return createQuery.getResultList();
+    }
+    
+     public List<Object[]> findGeneralAccions() {
+         
+        
+        String query = "SELECT  a.descripcion, count(a.descripcion) AS c FROM Accion a WHERE a.estadoAccion = :estadoAccion GROUP BY a.descripcion";
+        Query createQuery = em.createQuery(query);
+        List<Object[]> obj=new ArrayList<>();
+        createQuery.setParameter("estadoAccion", true);
+           for (Object object : createQuery.getResultList()) {
+               Object [] oj=(Object [])object;
+               obj.add(oj);
+               System.out.println("   -+-+-+----+-++-+-+-+-+-+--++-+++++nueva corrida---+-+-++++++++-++++++++:"+oj[0] + " - "+oj[1]);
+         } 
+        
+        return obj;
     }
     
 }

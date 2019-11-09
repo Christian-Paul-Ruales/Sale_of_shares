@@ -229,6 +229,20 @@ public class AccionController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    /**------------------------------------------------------------- Lista de Acciones---------------*/
+    /**Lista de acciones para el index*/
+    public DataModel getAccionsForIndex(){
+        ListDataModel dm= new ListDataModel(getFacade().findGeneralAccions());
+        this.items = dm;
+        
+        for (Object items : dm) {
+           
+            System.out.println("---------------------------------------------"
+                + "model.AccionController.getAccionsForIndex()"+items);
+        }
+       return dm;
+    }
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);

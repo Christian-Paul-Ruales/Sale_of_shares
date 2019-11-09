@@ -52,6 +52,13 @@
                         </li>
                       </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
+                            <li>
+                                <h:form>
+                                    <h:inputText a:placeholder="Buscar"></h:inputText>
+                                    <p:commandButton icon="ui-icon-document"></p:commandButton>
+                                    
+                                </h:form> 
+                            </li>
                             <li class="nav-item">
                                 
                                 <h:outputText value="#{usuarioController.LoggedUser().nombre}"></h:outputText>
@@ -72,7 +79,7 @@
                             <li class="nav-item ">
                                 <h:form>
                                     
-                                    <h:commandLink class="nav-link" actionListener="#{usuarioController.CloseSession()}" value="Cerrar Sesion" action="/login?faces-redirect=true"> </h:commandLink>
+                                    <h:commandLink class="nav-link" actionListener="#{usuarioController.CloseSession()}" value="Cerrar Sesion" action="/usuario/login?faces-redirect=true"> </h:commandLink>
 
                                 </h:form>
                                 

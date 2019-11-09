@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Vende y Compra Acciones</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -20,7 +21,7 @@
             <ui:define name="content">
                 <ui:include src="./components/carrousel.xhtml"></ui:include>
                 <div class="container" >
-                    <h:panelGrid columns="3" cellpadding = "30" cellspacing = "10" style="position: absolute; top: 350px; z-index: 99;">
+                    <h:panelGrid columns="3" cellpadding = "30" cellspacing = "10" >
                         <h:link outcome="index" class="btn btn-light" style="border-radius: 0" >
                             <h:graphicImage  value="resources/img/Acciones.png" width="65%" height="200px" ></h:graphicImage>
                                 <br/>
@@ -38,6 +39,30 @@
                         </h:link>
 
                     </h:panelGrid>
+                    
+                    
+                    <h:dataTable value="#{accionController.accionsForIndex}"  var="item" >
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descripcion"/>
+                            </f:facet>
+                            <h:link class="btn btn-outline-dark" outcome="/accion/View">
+                                <h:outputText value="#{item[0]}"/><br/>
+                                <h:outputText value="#{item[1]}"/>
+                            </h:link>
+                            
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descripcion"/>
+                            </f:facet>
+                            <h:outputText value="#{item[1]}"/>
+                                </h:column>
+                    </h:dataTable>
+                    
+                    
+                    
 
                 </div>
                 <h:link outcome="/accion/List" value="Show All Accion Items"/>
