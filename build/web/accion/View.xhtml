@@ -5,42 +5,68 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="./../templates/navbar.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewAccionTitle}"></h:outputText>
+            <h:outputText value="Comprar esta accion"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewAccionLabel_idAccion}"/>
-                    <h:outputText value="#{accionController.selected.idAccion}" title="#{bundle.ViewAccionTitle_idAccion}"/>
-                    <h:outputText value="#{bundle.ViewAccionLabel_descripcion}"/>
-                    <h:outputText value="#{accionController.selected.descripcion}" title="#{bundle.ViewAccionTitle_descripcion}"/>
-                    <h:outputText value="#{bundle.ViewAccionLabel_estadoAccion}"/>
-                    <h:outputText value="#{accionController.selected.estadoAccion}" title="#{bundle.ViewAccionTitle_estadoAccion}"/>
-                    <h:outputText value="#{bundle.ViewAccionLabel_valorPorcentual}"/>
-                    <h:outputText value="#{accionController.selected.valorPorcentual}" title="#{bundle.ViewAccionTitle_valorPorcentual}"/>
-                    <h:outputText value="#{bundle.ViewAccionLabel_valorNominal}"/>
-                    <h:outputText value="#{accionController.selected.valorNominal}" title="#{bundle.ViewAccionTitle_valorNominal}"/>
-                    <h:outputText value="#{bundle.ViewAccionLabel_idUsuario}"/>
-                    <h:outputText value="#{accionController.selected.idUsuario}" title="#{bundle.ViewAccionTitle_idUsuario}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{accionController.destroyAndView}" value="#{bundle.ViewAccionDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewAccionEditLink}"/>
-                <br />
-                <h:commandLink action="#{accionController.prepareCreate}" value="#{bundle.ViewAccionCreateLink}" />
-                <br />
-                <h:commandLink action="#{accionController.prepareList}" value="#{bundle.ViewAccionShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewAccionIndexLink}"/>
+                <div class="container" style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col">
+                           <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><h:outputLabel value="#{accionController.selected.descripcion}"></h:outputLabel></h5>
 
+                                    <p class="card-text">
+                                        Acciones por el <h:outputText value="#{accionController.selected.valorPorcentual}%"></h:outputText><br/>
+                                        Dueno Actual <h:outputText value="#{accionController.selected.idUsuario.nombre}"></h:outputText><br/>
+
+
+                                    </p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col">
+                                    <h:outputLabel value="#{accionController.selected.valorNominal} $"></h:outputLabel>
+                                    
+                                </div>
+                                <div class="col">
+                                    <h:commandButton action="/accion/buy?faces-redirect=true" class="btn btn-success" value="Comprar" style="width: 100%;"></h:commandButton>
+
+                                    
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                               <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><h:outputLabel value="#{accionController.selected.idUsuario.nombre}"></h:outputLabel></h5>
+
+                                    <p class="card-text">
+                                        Correo de contacto:<h:outputText value="#{accionController.selected.idUsuario.correo}"></h:outputText><br/>
+
+
+                                    </p>
+                                </div>
+                            </div> 
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+                
+               
             </h:form>
         </ui:define>
     </ui:composition>

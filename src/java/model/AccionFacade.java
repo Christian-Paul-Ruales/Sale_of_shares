@@ -44,7 +44,7 @@ public class AccionFacade extends AbstractFacade<Accion> {
      public List<Object[]> findGeneralAccions() {
          
         
-        String query = "SELECT  a.descripcion, count(a.descripcion) AS c FROM Accion a WHERE a.estadoAccion = :estadoAccion GROUP BY a.descripcion";
+        String query = "SELECT a.descripcion, a.valorPorcentual, a.valorNominal, count(a.descripcion) AS c FROM Accion a WHERE a.estadoAccion = :estadoAccion GROUP BY a.descripcion, a.valorPorcentual, a.valorNominal";
         Query createQuery = em.createQuery(query);
         List<Object[]> obj=new ArrayList<>();
         createQuery.setParameter("estadoAccion", true);
@@ -56,5 +56,15 @@ public class AccionFacade extends AbstractFacade<Accion> {
         
         return obj;
     }
+     
+        public List<Accion> findAccionsByDescripcion(String Descripcion){
+         String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND a.descripcion = :descripcion";
+         Query creaQuery = em.createQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+         creaQuery.setParameter("estadoAccion", true);
+         creaQuery.setParameter("descripcion", Descripcion);
+         
+         return creaQuery.getResultList();
+     }
     
 }

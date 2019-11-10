@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../templates/User_template.xhtml">
+            <ui:define name="content">
+                <div class="container">
+                    <h:panelGrid columns="1">
+                        <h:outputText value="#{usuarioController.LoggedUser().nombre}">
+                        
+                        </h:outputText>
+                        <h:outputText value="#{accionController.selected.descripcion}">
+                         </h:outputText>
+                         <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <h:inputText id="txt1" value="#{accionController.number_Accions}" />
+                            <p:slider for="txt1" minValue="1" maxValue="#{accionController.number_Accions}" />
+                        </h:panelGrid>
+                       <h:outputText value="#{currentDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+                        </h:outputText>
+                        
+                    </h:panelGrid>
+                    
+                </div>
+                    
+                    
+              
+                
+            </ui:define>
+            
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -15,6 +15,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 
 @Named("usuarioController")
 @SessionScoped
@@ -110,11 +111,15 @@ public class UsuarioController implements Serializable {
     public void VerifySession(){
         try {
             FacesContext context= FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+               // String root = pageContext.getRequest().getServletContext().getContextPath();
+             String path =servletContext.getContextPath();
+             System.out.println(" --------------------------------------------- PATH SESSION: "+path);
            Usuario us=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
            if(us == null){
                JsfUtil.addErrorMessage("Debes Iniciar Sesion Primero");
-
-               context.getExternalContext().redirect("./login.xhtml");
+               
+               context.getExternalContext().redirect("/VentaAcciones/faces/usuario/login.xhtml");
            }
         } catch (Exception e) {
         }

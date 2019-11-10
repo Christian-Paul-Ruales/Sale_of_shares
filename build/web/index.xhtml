@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Vende y Compra Acciones</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -39,31 +40,27 @@
                         </h:link>
 
                     </h:panelGrid>
-                    
-                    
-                    <h:dataTable value="#{accionController.accionsForIndex}"  var="item" >
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Descripcion"/>
-                            </f:facet>
-                            <h:link class="btn btn-outline-dark" outcome="/accion/View">
-                                <h:outputText value="#{item[0]}"/><br/>
-                                <h:outputText value="#{item[1]}"/>
-                            </h:link>
-                            
-                        </h:column>
-                        
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Descripcion"/>
-                            </f:facet>
-                            <h:outputText value="#{item[1]}"/>
-                                </h:column>
-                    </h:dataTable>
-                    
-                    
-                    
+                    <h:form>
+                        <h:panelGrid columns="3" cellpadding="20">
 
+                            <c:forEach items="#{accionController.accionsinList}" var="item">
+                                    <h:commandLink class="btn btn-outline-dark" action="#{accionController.ShowAccionsByDescription()}">
+                                        <h:outputText value="#{item[0]}"/>
+                                        <h:outputText value="#{item[1]}%"/><br/><br/><br/>
+                                        <h:outputText value="Disponibilidad: #{item[3]}     Precio: #{item[2]}$"/>
+                                        <f:param name="descripcion" value="#{item[0]}" />
+
+
+                                    </h:commandLink>
+
+
+
+
+                             </c:forEach>
+                        </h:panelGrid>
+                        
+                    </h:form>
+                    
                 </div>
                 <h:link outcome="/accion/List" value="Show All Accion Items"/>
                 <br />

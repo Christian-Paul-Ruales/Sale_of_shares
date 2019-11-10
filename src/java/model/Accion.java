@@ -60,13 +60,23 @@ public class Accion implements Serializable {
     @NotNull
     @Column(name = "valor_porcentual")
     private BigDecimal valorPorcentual;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_nominal")
     private BigDecimal valorNominal;
+    
+    @Column(name = "cantidad")
+    private Integer cantidad;
+    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id_usuario")
+    @ManyToOne(optional = false)
+    private Usuario idEmpresa;
+    
+    
     @OneToMany(mappedBy = "idAccion")
     private Collection<HistoricoVentas> historicoVentasCollection;
 
@@ -132,6 +142,16 @@ public class Accion implements Serializable {
         
         this.idUsuario = idUsuario;
     }
+
+    public Usuario getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Usuario idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
+    
 
     @XmlTransient
     public Collection<HistoricoVentas> getHistoricoVentasCollection() {

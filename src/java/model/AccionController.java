@@ -4,6 +4,9 @@ import model.util.JsfUtil;
 import model.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -22,6 +25,9 @@ public class AccionController implements Serializable {
     
     private Accion current;
     private DataModel items = null;
+    
+    /**Datos para mostrar la venta de Acciones*/
+    private List<Object[]> Elements= new ArrayList<Object[]>();
     @EJB
     private model.AccionFacade ejbFacade;
     private PaginationHelper pagination;
@@ -101,9 +107,30 @@ public class AccionController implements Serializable {
     public String prepareView() {
         current = (Accion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/accion/View";
     }
 
+    
+    /**----------------------------------------------------------------------------Mostrar las acciones */
+    public String ShowAccionsByDescription() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String parameter = params.get("descripcion");
+        List<Accion> accions= getFacade().findAccionsByDescripcion(parameter);
+        this.current = accions.get(0);
+        int number=accions.size();
+        this.Number_Accions=number;
+        
+        //?faces-redirect=true
+        return "/accion/View?faces-redirect=true";
+        
+    }
+    
+    public String prepareBuy(){
+         
+        return "";
+    }
+    
     public String prepareCreate() {
         current = new Accion();
         selectedItemIndex = -1;
@@ -242,6 +269,12 @@ public class AccionController implements Serializable {
                 + "model.AccionController.getAccionsForIndex()"+items);
         }
        return dm;
+    }
+    
+     public List<Object[]> getAccionsinList(){
+         this.Elements= getFacade().findGeneralAccions();
+        
+       return this.Elements;
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
