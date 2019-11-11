@@ -17,10 +17,10 @@
             <h:form>
         
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Numero de Acciones a vender" for="txt1" />
+                    <h:outputLabel value="Numero de Acciones a vender:" for="txt1" />
                    
                     <h:panelGrid columns="1" style="margin-bottom: 10px">
-                        <h:inputText id="txt1" value="#{accionController.number_Accions}" />
+                        <h:inputText id="txt1" value="#{accionController.selected.cantidad}" />
                         <p:slider for="txt1" minValue="1" />
                     </h:panelGrid>
                     

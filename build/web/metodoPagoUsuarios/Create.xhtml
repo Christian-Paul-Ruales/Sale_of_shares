@@ -23,7 +23,7 @@
                     <h:selectOneMenu id="metodoPago" value="#{metodoPagoUsuariosController.selected.metodoPago}" title="#{bundle.CreateMetodoPagoUsuariosTitle_metodoPago}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_metodoPago}">
                         <f:selectItems value="#{metodoPagoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateMetodoPagoUsuariosLabel_usuario}" for="usuario" />
+                    <h:outputLabel value="Ingrese:" for="usuario" />
                     <h:selectOneMenu id="usuario" value="#{metodoPagoUsuariosController.selected.usuario}" title="#{bundle.CreateMetodoPagoUsuariosTitle_usuario}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_usuario}">
                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>

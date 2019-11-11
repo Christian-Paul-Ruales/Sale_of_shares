@@ -5,9 +5,11 @@
  */
 package model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class MetodoPagoUsuariosFacade extends AbstractFacade<MetodoPagoUsuarios>
 
     public MetodoPagoUsuariosFacade() {
         super(MetodoPagoUsuarios.class);
+    }
+    
+    public List<MetodoPagoUsuarios> getMetodosPagoByUser(int idusuario){
+         String query="SELECT m FROM MetodoPagoUsuarios m WHERE m.metodoPagoUsuariosPK.idUsuario = :idUsuario";
+         Query CreateQuery= em.createQuery(query);
+         CreateQuery.setParameter("idUsuario", idusuario );
+         
+        return CreateQuery.getResultList();
     }
     
 }

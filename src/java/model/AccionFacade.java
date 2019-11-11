@@ -41,28 +41,32 @@ public class AccionFacade extends AbstractFacade<Accion> {
         return createQuery.getResultList();
     }
     
-     public List<Object[]> findGeneralAccions() {
+     public List<Accion> findGeneralAccions() {
          
         
-        String query = "SELECT a.descripcion, a.valorPorcentual, a.valorNominal, count(a.descripcion) AS c FROM Accion a WHERE a.estadoAccion = :estadoAccion GROUP BY a.descripcion, a.valorPorcentual, a.valorNominal";
+        String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion";
         Query createQuery = em.createQuery(query);
-        List<Object[]> obj=new ArrayList<>();
         createQuery.setParameter("estadoAccion", true);
-           for (Object object : createQuery.getResultList()) {
-               Object [] oj=(Object [])object;
-               obj.add(oj);
-               System.out.println("   -+-+-+----+-++-+-+-+-+-+--++-+++++nueva corrida---+-+-++++++++-++++++++:"+oj[0] + " - "+oj[1]);
-         } 
-        
-        return obj;
+          
+        return createQuery.getResultList();
     }
      
-        public List<Accion> findAccionsByDescripcion(String Descripcion){
-         String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND a.descripcion = :descripcion";
+        public List<Accion> findAccionsByDescripcion(int id){
+         String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND a.idAccion = :id";
          Query creaQuery = em.createQuery(query);
         // List<Object[]> obj = new ArrayList<>();
          creaQuery.setParameter("estadoAccion", true);
-         creaQuery.setParameter("descripcion", Descripcion);
+         creaQuery.setParameter("id", id);
+         
+         return creaQuery.getResultList();
+     }
+        
+        public List<Accion> findByDescripcion(String descripcion){
+         String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND LOWER(a.descripcion) LIKE :descripcion";
+         Query creaQuery = em.createQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+         creaQuery.setParameter("estadoAccion", true);
+         creaQuery.setParameter("descripcion", descripcion);
          
          return creaQuery.getResultList();
      }

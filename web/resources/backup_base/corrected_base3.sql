@@ -5,7 +5,7 @@
 -- Dumped from database version 11.2
 -- Dumped by pg_dump version 11.2
 
--- Started on 2019-11-09 22:14:47
+-- Started on 2019-11-10 23:23:51
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -57,7 +57,7 @@ CREATE SEQUENCE public.accion_id_accion_seq
 ALTER TABLE public.accion_id_accion_seq OWNER TO postgres;
 
 --
--- TOC entry 2892 (class 0 OID 0)
+-- TOC entry 2893 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: accion_id_accion_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -101,7 +101,7 @@ CREATE SEQUENCE public.historico_ventas_id_ventas_seq
 ALTER TABLE public.historico_ventas_id_ventas_seq OWNER TO postgres;
 
 --
--- TOC entry 2893 (class 0 OID 0)
+-- TOC entry 2894 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: historico_ventas_id_ventas_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -139,7 +139,7 @@ CREATE SEQUENCE public.metodo_pago_id_metodo_pago_seq
 ALTER TABLE public.metodo_pago_id_metodo_pago_seq OWNER TO postgres;
 
 --
--- TOC entry 2894 (class 0 OID 0)
+-- TOC entry 2895 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: metodo_pago_id_metodo_pago_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -179,7 +179,7 @@ CREATE SEQUENCE public.metodo_pago_usuarios_id_metodo_pago_seq
 ALTER TABLE public.metodo_pago_usuarios_id_metodo_pago_seq OWNER TO postgres;
 
 --
--- TOC entry 2895 (class 0 OID 0)
+-- TOC entry 2896 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: metodo_pago_usuarios_id_metodo_pago_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -217,7 +217,7 @@ CREATE SEQUENCE public.tipo_usuario_id_tipousuario_seq
 ALTER TABLE public.tipo_usuario_id_tipousuario_seq OWNER TO postgres;
 
 --
--- TOC entry 2896 (class 0 OID 0)
+-- TOC entry 2897 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: tipo_usuario_id_tipousuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -261,7 +261,7 @@ CREATE SEQUENCE public.usuario_id_usuario_seq
 ALTER TABLE public.usuario_id_usuario_seq OWNER TO postgres;
 
 --
--- TOC entry 2897 (class 0 OID 0)
+-- TOC entry 2898 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: usuario_id_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -318,52 +318,62 @@ ALTER TABLE ONLY public.usuario ALTER COLUMN id_usuario SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2876 (class 0 OID 24701)
+-- TOC entry 2877 (class 0 OID 24701)
 -- Dependencies: 197
 -- Data for Name: accion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.accion (id_accion, id_usuario, descripcion, estado_accion, valor_porcentual, valor_nominal, cantidad, id_empresa) FROM stdin;
-3	2	compus	t	10.00	10.00	\N	\N
-4	2	compus	t	10.00	10.00	\N	\N
-5	2	compus	t	10.00	10.00	\N	\N
-6	2	compus	t	10.00	10.00	\N	\N
-2	1	acciones celulares	t	9.90	1.00	\N	\N
+9	1	hola	t	3.20	12.00	2	1
+12	1	Ventas cortas	t	2.00	5.00	1	1
+13	1	Ventas cortas	t	2.00	5.00	1	1
+14	1	Ventas cortas	t	2.00	5.00	1	1
+15	1	Ventas cortas	t	2.00	5.00	1	1
+16	1	Ventas cortas	t	2.00	5.00	1	1
+17	1	Ventas cortas	t	2.00	5.00	1	1
+11	3	Ventas cortas	t	2.00	5.00	11	3
 \.
 
 
 --
--- TOC entry 2878 (class 0 OID 24711)
+-- TOC entry 2879 (class 0 OID 24711)
 -- Dependencies: 199
 -- Data for Name: historico_ventas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.historico_ventas (id_ventas, id_accion, id_usuario, fecha_venta, estado_actual, valor_venta, valor_real, cantidad) FROM stdin;
+3	9	3	2019-06-12	1	12.00	1.00	1
+4	9	1	2019-11-10	0	12.00	12.00	1
+5	12	1	2019-12-01	1	12.00	1.00	0
 \.
 
 
 --
--- TOC entry 2880 (class 0 OID 24722)
+-- TOC entry 2881 (class 0 OID 24722)
 -- Dependencies: 201
 -- Data for Name: metodo_pago; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.metodo_pago (id_metodo_pago, descripcion) FROM stdin;
+1	Tarjeta de Credito
+2	Paypal
 \.
 
 
 --
--- TOC entry 2882 (class 0 OID 24731)
+-- TOC entry 2883 (class 0 OID 24731)
 -- Dependencies: 203
 -- Data for Name: metodo_pago_usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.metodo_pago_usuarios (id_metodo_pago, id_usuario, identificador, clave) FROM stdin;
+1	1	777-555-333	\N
+2	1	cruales@gmail.com	\N
 \.
 
 
 --
--- TOC entry 2884 (class 0 OID 24742)
+-- TOC entry 2885 (class 0 OID 24742)
 -- Dependencies: 205
 -- Data for Name: tipo_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -375,46 +385,46 @@ COPY public.tipo_usuario (id_tipousuario, descripcion) FROM stdin;
 
 
 --
--- TOC entry 2886 (class 0 OID 24751)
+-- TOC entry 2887 (class 0 OID 24751)
 -- Dependencies: 207
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.usuario (id_usuario, id_tipousuario, ci_ruc, nombre, capital, correo, clave, valor_empresa) FROM stdin;
 1	2	1726924168	Christian Ruales	\N	cruales@gmail.com	1234	\N
-2	1	1726772211001	La Favorita	\N	gerencia@lafavorita.ec	1234	\N
+3	1	1726772211001	La Favorita	\N	gerencia@lafavorita.ec	1234	\N
 \.
 
 
 --
--- TOC entry 2898 (class 0 OID 0)
+-- TOC entry 2899 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: accion_id_accion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.accion_id_accion_seq', 6, true);
-
-
---
--- TOC entry 2899 (class 0 OID 0)
--- Dependencies: 198
--- Name: historico_ventas_id_ventas_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.historico_ventas_id_ventas_seq', 1, false);
+SELECT pg_catalog.setval('public.accion_id_accion_seq', 17, true);
 
 
 --
 -- TOC entry 2900 (class 0 OID 0)
--- Dependencies: 200
--- Name: metodo_pago_id_metodo_pago_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 198
+-- Name: historico_ventas_id_ventas_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.metodo_pago_id_metodo_pago_seq', 1, false);
+SELECT pg_catalog.setval('public.historico_ventas_id_ventas_seq', 5, true);
 
 
 --
 -- TOC entry 2901 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: metodo_pago_id_metodo_pago_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.metodo_pago_id_metodo_pago_seq', 2, true);
+
+
+--
+-- TOC entry 2902 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: metodo_pago_usuarios_id_metodo_pago_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -423,7 +433,7 @@ SELECT pg_catalog.setval('public.metodo_pago_usuarios_id_metodo_pago_seq', 1, fa
 
 
 --
--- TOC entry 2902 (class 0 OID 0)
+-- TOC entry 2903 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: tipo_usuario_id_tipousuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -432,12 +442,12 @@ SELECT pg_catalog.setval('public.tipo_usuario_id_tipousuario_seq', 2, true);
 
 
 --
--- TOC entry 2903 (class 0 OID 0)
+-- TOC entry 2904 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: usuario_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_usuario_seq', 2, true);
+SELECT pg_catalog.setval('public.usuario_id_usuario_seq', 3, true);
 
 
 --
@@ -609,7 +619,16 @@ ALTER TABLE ONLY public.accion
 
 
 --
--- TOC entry 2750 (class 2606 OID 24772)
+-- TOC entry 2749 (class 2606 OID 24794)
+-- Name: accion fk_accion_empresa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.accion
+    ADD CONSTRAINT fk_accion_empresa FOREIGN KEY (id_empresa) REFERENCES public.usuario(id_usuario);
+
+
+--
+-- TOC entry 2751 (class 2606 OID 24772)
 -- Name: historico_ventas fk_historic_accion_hi_accion; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -618,7 +637,7 @@ ALTER TABLE ONLY public.historico_ventas
 
 
 --
--- TOC entry 2749 (class 2606 OID 24767)
+-- TOC entry 2750 (class 2606 OID 24767)
 -- Name: historico_ventas fk_historic_accionist_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -627,7 +646,7 @@ ALTER TABLE ONLY public.historico_ventas
 
 
 --
--- TOC entry 2752 (class 2606 OID 24782)
+-- TOC entry 2753 (class 2606 OID 24782)
 -- Name: metodo_pago_usuarios fk_metodo_p_relations_metodo_p; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -636,7 +655,7 @@ ALTER TABLE ONLY public.metodo_pago_usuarios
 
 
 --
--- TOC entry 2751 (class 2606 OID 24777)
+-- TOC entry 2752 (class 2606 OID 24777)
 -- Name: metodo_pago_usuarios fk_metodo_p_relations_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -645,7 +664,7 @@ ALTER TABLE ONLY public.metodo_pago_usuarios
 
 
 --
--- TOC entry 2753 (class 2606 OID 24787)
+-- TOC entry 2754 (class 2606 OID 24787)
 -- Name: usuario fk_usuario_tipoaccio_tipo_usu; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -653,7 +672,7 @@ ALTER TABLE ONLY public.usuario
     ADD CONSTRAINT fk_usuario_tipoaccio_tipo_usu FOREIGN KEY (id_tipousuario) REFERENCES public.tipo_usuario(id_tipousuario) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
--- Completed on 2019-11-09 22:14:49
+-- Completed on 2019-11-10 23:23:52
 
 --
 -- PostgreSQL database dump complete

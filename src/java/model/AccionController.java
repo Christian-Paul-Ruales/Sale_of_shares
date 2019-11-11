@@ -4,7 +4,11 @@ import model.util.JsfUtil;
 import model.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -25,15 +29,32 @@ public class AccionController implements Serializable {
     
     private Accion current;
     private DataModel items = null;
-    
+    private String Search;
     /**Datos para mostrar la venta de Acciones*/
-    private List<Object[]> Elements= new ArrayList<Object[]>();
+    private List<Accion> Elements= new ArrayList<Accion>();
     @EJB
     private model.AccionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private Integer Number_Accions;
 
+    /**forSearch*/
+    
+    
+    public String getSearch() {
+        return Search;
+    }
+
+    public void setSearch(String Search) {
+        this.Search = Search;
+    }
+    
+    public List<Accion> getfindAccions(){
+    
+      this.Elements=  getFacade().findByDescripcion(Search);
+      return this.Elements;
+    }
+    
     public AccionController() {
     }
 
@@ -115,7 +136,7 @@ public class AccionController implements Serializable {
     public String ShowAccionsByDescription() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String parameter = params.get("descripcion");
+        int parameter = Integer.parseInt(params.get("id")); 
         List<Accion> accions= getFacade().findAccionsByDescripcion(parameter);
         this.current = accions.get(0);
         int number=accions.size();
@@ -129,6 +150,48 @@ public class AccionController implements Serializable {
     public String prepareBuy(){
          
         return "";
+    }
+    
+    public String Buy(){
+        BigDecimal valor_real = GenerateRealValue();
+
+        update();
+        UsuarioController us = new UsuarioController();
+        Usuario accionist = us.LoggedUser();
+        current.setIdUsuario(accionist);
+        current.setCantidad(Number_Accions);
+        
+        /**Guardo la venta*/
+        HistoricoVentasController hvc= new HistoricoVentasController();
+        
+        hvc.getSelected().setIdAccion(current);
+        
+        hvc.getSelected().setIdUsuario(accionist);
+        Date objDate = new Date();
+        hvc.getSelected().setFechaVenta(objDate);
+        hvc.getSelected().setEstadoActual(1);
+        
+        
+        hvc.getSelected().setValorReal(valor_real);
+        System.out.println("-------------------------------------------------Buy accion cotroller Valor real: "+valor_real);
+        BigDecimal cant = new BigDecimal(current.getCantidad());
+        BigDecimal bd = valor_real.multiply(cant);
+         System.out.println("-------------------------------------------------Buy accion cotroller Valor Venta: "+bd);
+
+        hvc.getSelected().setValorVenta(bd);
+                 System.out.println("-------------------------------------------------Buy accion cotroller Cantidad "+current.getCantidad());
+
+        hvc.getSelected().setCantidad(current.getCantidad());
+       
+        hvc.create();
+        
+        
+        create();
+        
+        
+       
+        
+        return "/usuario/workspace_user";
     }
     
     public String prepareCreate() {
@@ -146,14 +209,15 @@ public class AccionController implements Serializable {
                  Usuario us=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
                  current.setIdUsuario(us);
                  current.setEstadoAccion(true);
+                 current.setIdEmpresa(us);
             } catch (Exception e) {
             }
             
-            for (int i = 0; i < this.Number_Accions; i++) {
+            
                getFacade().create(current);
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionCreated"));
+                JsfUtil.addSuccessMessage("Accion Creada");
               
-            }
+            
            return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -167,8 +231,23 @@ public class AccionController implements Serializable {
         return "Edit";
     }
 
+    /**Genero un precio Final*/
+    public BigDecimal GenerateRealValue(){
+        System.out.println("-------------------------------------------------------Valor Nominal:"+current.getValorNominal());
+        BigDecimal RealValue=current.getValorNominal();
+        
+        double cast = Double.parseDouble(RealValue.toString()) ;
+        double Quintaparte =Math.random() * cast;
+        double Real_final_value = cast + Quintaparte;
+         BigDecimal retornar = new BigDecimal(Real_final_value);
+        
+         return retornar;
+    
+    }
     public String update() {
         try {
+            
+            current.setCantidad(current.getCantidad()-Number_Accions);
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionUpdated"));
             return "View";
@@ -271,7 +350,7 @@ public class AccionController implements Serializable {
        return dm;
     }
     
-     public List<Object[]> getAccionsinList(){
+     public List<Accion> getAccionsinList(){
          this.Elements= getFacade().findGeneralAccions();
         
        return this.Elements;

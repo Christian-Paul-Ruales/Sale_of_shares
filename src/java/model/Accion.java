@@ -150,6 +150,14 @@ public class Accion implements Serializable {
     public void setIdEmpresa(Usuario idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
     
     
 

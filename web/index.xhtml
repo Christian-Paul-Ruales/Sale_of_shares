@@ -45,10 +45,10 @@
 
                             <c:forEach items="#{accionController.accionsinList}" var="item">
                                     <h:commandLink class="btn btn-outline-dark" action="#{accionController.ShowAccionsByDescription()}">
-                                        <h:outputText value="#{item[0]}"/>
-                                        <h:outputText value="#{item[1]}%"/><br/><br/><br/>
-                                        <h:outputText value="Disponibilidad: #{item[3]}     Precio: #{item[2]}$"/>
-                                        <f:param name="descripcion" value="#{item[0]}" />
+                                        <h:outputText value="#{item.descripcion}"/>
+                                        <h:outputText value="#{item.idEmpresa.nombre}%"/><br/><br/><br/>
+                                        <h:outputText value="Disponibilidad: #{item.cantidad}   Porcentaje:#{item.valorPorcentual}  Precio: #{item.valorNominal}$"/>
+                                        <f:param name="id" value="#{item.idAccion}" />
 
 
                                     </h:commandLink>

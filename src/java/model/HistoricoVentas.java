@@ -64,6 +64,11 @@ public class HistoricoVentas implements Serializable {
     @NotNull
     @Column(name = "valor_real")
     private BigDecimal valorReal;
+    
+     @Column(name = "cantidad")
+    private int cantidad;
+    
+    
     @JoinColumn(name = "id_accion", referencedColumnName = "id_accion")
     @ManyToOne
     private Accion idAccion;
@@ -142,6 +147,16 @@ public class HistoricoVentas implements Serializable {
         this.idUsuario = idUsuario;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

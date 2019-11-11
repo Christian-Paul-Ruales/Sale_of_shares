@@ -109,7 +109,7 @@ public class MetodoPago implements Serializable {
 
     @Override
     public String toString() {
-        return "model.MetodoPago[ idMetodoPago=" + idMetodoPago + " ]";
+        return  descripcion;
     }
     
 }

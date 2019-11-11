@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateHistoricoVentasLabel_idVentas}" for="idVentas" />
-                    <h:inputText id="idVentas" value="#{historicoVentasController.selected.idVentas}" title="#{bundle.CreateHistoricoVentasTitle_idVentas}" required="true" requiredMessage="#{bundle.CreateHistoricoVentasRequiredMessage_idVentas}"/>
                     <h:outputLabel value="#{bundle.CreateHistoricoVentasLabel_fechaVenta}" for="fechaVenta" />
                     <h:inputText id="fechaVenta" value="#{historicoVentasController.selected.fechaVenta}" title="#{bundle.CreateHistoricoVentasTitle_fechaVenta}" required="true" requiredMessage="#{bundle.CreateHistoricoVentasRequiredMessage_fechaVenta}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />

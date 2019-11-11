@@ -12,22 +12,42 @@
         <ui:composition template="./../templates/User_template.xhtml">
             <ui:define name="content">
                 <div class="container">
+                    <h:form>
                     <h:panelGrid columns="1">
                         <h:outputText value="#{usuarioController.LoggedUser().nombre}">
                         
                         </h:outputText>
+                        
                         <h:outputText value="#{accionController.selected.descripcion}">
                          </h:outputText>
                          <h:panelGrid columns="1" style="margin-bottom: 10px">
                             <h:inputText id="txt1" value="#{accionController.number_Accions}" />
-                            <p:slider for="txt1" minValue="1" maxValue="#{accionController.number_Accions}" />
+                            <p:slider for="txt1" minValue="1" maxValue="#{accionController.selected.cantidad}" />
                         </h:panelGrid>
+                        
                        <h:outputText value="#{currentDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
                         </h:outputText>
                         
                     </h:panelGrid>
                     
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Metodo de pago</h5>
+                          <hr></hr>
+                               <h:selectOneMenu id="metodoPago" value="#{metodoPagoUsuariosController.selected.metodoPago}" title="#{bundle.CreateMetodoPagoUsuariosTitle_metodoPago}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_metodoPago}">
+                                    <f:selectItems value="#{metodoPagoController.itemsAvailableSelectOne}"/>
+                                </h:selectOneMenu>
+                          <p class="card-text">Ingrese:</p>
+                          <h:inputText value="#{metodoPagoUsuariosController.selected.identificador}">
+                              
+                          </h:inputText>
+                         
+                        </div>
+                      </div>
+                        
+                        <h:commandButton actionListener="#{metodoPagoUsuariosController.create()}" action="#{accionController.Buy()}"></h:commandButton>
+                    </h:form>
                 </div>
                     
                     

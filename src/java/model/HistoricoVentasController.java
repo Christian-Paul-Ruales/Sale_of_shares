@@ -78,14 +78,21 @@ public class HistoricoVentasController implements Serializable {
     }
 
     public String create() {
-        try {
+        System.out.println("-------------------------------------------Entrando a create historico ventas ID ACCION: "+current.getIdAccion().getIdAccion());
+                System.out.println("-------------------------------------------Entrando a create historico ventas ID USUARIO: "+current.getIdUsuario());
+
+                System.out.println("-------------------------------------------Entrando a create historico ventas FECHA VENTA: "+current.getFechaVenta());
+        
+                System.out.println("-------------------------------------------Entrando a create historico ventas ESTADO ACTUAL: "+current.getEstadoActual());
+                System.out.println("-------------------------------------------Entrando a create historico ventas VALOR VENTA: "+current.getValorVenta());
+                System.out.println("-------------------------------------------Entrando a create historico ventas VALOR REAL: "+current.getValorReal());
+                System.out.println("-------------------------------------------Entrando a create historico ventas CAMTIDAD: "+current.getCantidad());
+                
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HistoricoVentasCreated"));
             return prepareCreate();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }
+       
+          
     }
 
     public String prepareEdit() {

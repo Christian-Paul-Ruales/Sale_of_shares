@@ -170,6 +170,8 @@ public class UsuarioController implements Serializable {
 
     public String update() {
         try {
+            
+            
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
             return "View";

@@ -79,9 +79,24 @@ public class MetodoPagoUsuariosController implements Serializable {
         return "Create";
     }
 
+    /** ----------------------------------------------------Metodo para pagar --------------------------*/
+    
+    public void PayMethod(){
+        UsuarioController uc=new UsuarioController();
+            Usuario us = uc.LoggedUser();
+        if(getFacade().getMetodosPagoByUser(us.getIdUsuario()).size()>0){
+            update();
+        }else{
+             create();
+        }
+    
+    }
     public String create() {
+        
         try {
-            current.getMetodoPagoUsuariosPK().setIdUsuario(current.getUsuario().getIdUsuario());
+            UsuarioController uc=new UsuarioController();
+            Usuario us = uc.LoggedUser();
+            current.getMetodoPagoUsuariosPK().setIdUsuario(us.getIdUsuario());
             current.getMetodoPagoUsuariosPK().setIdMetodoPago(current.getMetodoPago().getIdMetodoPago());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MetodoPagoUsuariosCreated"));
@@ -100,7 +115,9 @@ public class MetodoPagoUsuariosController implements Serializable {
 
     public String update() {
         try {
-            current.getMetodoPagoUsuariosPK().setIdUsuario(current.getUsuario().getIdUsuario());
+             UsuarioController uc=new UsuarioController();
+            Usuario us = uc.LoggedUser();
+            current.getMetodoPagoUsuariosPK().setIdUsuario(us.getIdUsuario());
             current.getMetodoPagoUsuariosPK().setIdMetodoPago(current.getMetodoPago().getIdMetodoPago());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MetodoPagoUsuariosUpdated"));
