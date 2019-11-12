@@ -13,40 +13,56 @@
             <ui:define name="content">
                 <div class="container">
                     <h:form>
-                    <h:panelGrid columns="1">
-                        <h:outputText value="#{usuarioController.LoggedUser().nombre}">
-                        
-                        </h:outputText>
-                        
-                        <h:outputText value="#{accionController.selected.descripcion}">
-                         </h:outputText>
+                    
+                        <h1> <b><h:outputLabel value="#{accionController.selected.descripcion}"></h:outputLabel></b></h1>
+                        <hr/>
+                        <div class="row">
+                            <div class="col">
+                                 <h5><b><h:outputLabel value="Comprador: "></h:outputLabel> </b><h:outputText value="#{usuarioController.LoggedUser().nombre}">
+                                </h:outputText>
+                                </h5>
+                            </div>
+                            <div class="col">
+                                <h:outputText value="#{currentDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                       
+                        <h5> <b><h:outputLabel value="Cantidad"></h:outputLabel></b></h5>
                          <h:panelGrid columns="1" style="margin-bottom: 10px">
                             <h:inputText id="txt1" value="#{accionController.number_Accions}" />
                             <p:slider for="txt1" minValue="1" maxValue="#{accionController.selected.cantidad}" />
                         </h:panelGrid>
                         
-                       <h:outputText value="#{currentDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
-                        </h:outputText>
+                       
                         
-                    </h:panelGrid>
+                    
                     
                     <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">Metodo de pago</h5>
+                          <h5 class="card-title">Realizar el pago</h5>
                           <hr></hr>
-                               <h:selectOneMenu id="metodoPago" value="#{metodoPagoUsuariosController.selected.metodoPago}" title="#{bundle.CreateMetodoPagoUsuariosTitle_metodoPago}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_metodoPago}">
+                          <div class="row">
+                              <div class="col">
+                                  <b><h:outputText value="Metodo de pago:"></h:outputText></b><h:selectOneMenu class="dropdown" id="metodoPago" value="#{metodoPagoUsuariosController.selected.metodoPago}" title="#{bundle.CreateMetodoPagoUsuariosTitle_metodoPago}" required="true" requiredMessage="#{bundle.CreateMetodoPagoUsuariosRequiredMessage_metodoPago}">
                                     <f:selectItems value="#{metodoPagoController.itemsAvailableSelectOne}"/>
                                 </h:selectOneMenu>
-                          <p class="card-text">Ingrese:</p>
-                          <h:inputText value="#{metodoPagoUsuariosController.selected.identificador}">
-                              
-                          </h:inputText>
+                              </div>
+                              <div class="col">
+                                   <b><h:outputText value="Identificador: "></h:outputText></b>
+                                    <h:inputText value="#{metodoPagoUsuariosController.selected.identificador}">
+
+                                    </h:inputText>
+                              </div>
+                          </div>
+                          
+                         
                          
                         </div>
                       </div>
                         
-                        <h:commandButton actionListener="#{metodoPagoUsuariosController.create()}" action="#{accionController.Buy()}"></h:commandButton>
+                        <h:commandButton class="btn btn-success" actionListener="#{metodoPagoUsuariosController.create()}" action="#{accionController.Buy()}" value="Comprar Acciones"></h:commandButton>
                     </h:form>
                 </div>
                     

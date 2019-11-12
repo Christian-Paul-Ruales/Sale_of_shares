@@ -20,7 +20,7 @@
         <ui:composition template="./templates/navbar.xhtml">
 
             <ui:define name="content">
-                <ui:include src="./components/carrousel.xhtml"></ui:include>
+                <ui:include src="./templates/carrousel.xhtml"></ui:include>
                 <div class="container" >
                     <h:panelGrid columns="3" cellpadding = "30" cellspacing = "10" >
                         <h:link outcome="index" class="btn btn-light" style="border-radius: 0" >
@@ -44,17 +44,33 @@
                         <h:panelGrid columns="3" cellpadding="20">
 
                             <c:forEach items="#{accionController.accionsinList}" var="item">
-                                    <h:commandLink class="btn btn-outline-dark" action="#{accionController.ShowAccionsByDescription()}">
-                                        <h:outputText value="#{item.descripcion}"/>
-                                        <h:outputText value="#{item.idEmpresa.nombre}%"/><br/><br/><br/>
-                                        <h:outputText value="Disponibilidad: #{item.cantidad}   Porcentaje:#{item.valorPorcentual}  Precio: #{item.valorNominal}$"/>
-                                        <f:param name="id" value="#{item.idAccion}" />
+                                    <h:commandLink class="btn btn-light" action="#{accionController.ShowAccionsByDescription()}">
+                                        
+                                        <div>
+                                            <div >
+                                                <b> <h:outputLabel class="card-title" value="#{item.descripcion}"></h:outputLabel> </b>
+                                            </div>
+                                            <hr />
+                                            <div class="card-body">
+                                              <h:outputText class="card-text" value="#{item.valorPorcentual} de acciones de #{item.idEmpresa.nombre}" />
+                                              
+                                              <div class="row">
+                                                  <div class="col">
+                                                      <h:outputText value="Disponibilidad: #{item.cantidad}"></h:outputText>
+                                                      
+                                                  </div>
+                                                  <div class="col">
+                                                      <h:outputText value="Precio: #{item.valorNominal} $"></h:outputText>
+                                                      
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        
+                                         <f:param name="id" value="#{item.idAccion}" />
 
 
                                     </h:commandLink>
-
-
-
 
                              </c:forEach>
                         </h:panelGrid>
@@ -62,17 +78,7 @@
                     </h:form>
                     
                 </div>
-                <h:link outcome="/accion/List" value="Show All Accion Items"/>
-                <br />
-                <h:link outcome="/historicoVentas/List" value="Show All HistoricoVentas Items"/>
-                <br />
-                <h:link outcome="/metodoPago/List" value="Show All MetodoPago Items"/>
-                <br />
-                <h:link outcome="/metodoPagoUsuarios/List" value="Show All MetodoPagoUsuarios Items"/>
-                <br />
-                <h:link outcome="/tipoUsuario/List" value="Show All TipoUsuario Items"/>
-                <br />
-                <h:link outcome="/usuario/List" value="Show All Usuario Items"/>
+               
             </ui:define>
         </ui:composition>
         

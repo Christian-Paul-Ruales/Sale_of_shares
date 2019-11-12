@@ -4,6 +4,7 @@ import model.util.JsfUtil;
 import model.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -27,7 +28,7 @@ public class UsuarioController implements Serializable {
     private model.UsuarioFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private String pass2;
     public UsuarioController() {
     }
 
@@ -39,6 +40,15 @@ public class UsuarioController implements Serializable {
         return current;
     }
 
+    public String getPass2() {
+        return pass2;
+    }
+
+    public void setPass2(String pass2) {
+        this.pass2 = pass2;
+    }
+
+    
     private UsuarioFacade getFacade() {
         return ejbFacade;
     }
@@ -153,9 +163,22 @@ public class UsuarioController implements Serializable {
     }
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
-            return prepareCreate();
+            
+            if(getSelected().getClave().equals(getPass2())){
+             getFacade().create(current);
+                if(current.getIdTipousuario().getIdTipousuario()==1){
+                      int valorEntero = (int) Math.floor(Math.random()*(20000000-10000+1)+10000);
+                      BigDecimal valor_emp= new BigDecimal(valorEntero);
+                      current.setValorEmpresa(valor_emp);
+                }
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
+                return prepareCreate();
+            }else{
+                JsfUtil.addErrorMessage("Las claves son diferentes");
+
+                return null;
+            }
+           
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

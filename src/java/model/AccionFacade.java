@@ -62,11 +62,12 @@ public class AccionFacade extends AbstractFacade<Accion> {
      }
         
         public List<Accion> findByDescripcion(String descripcion){
+            descripcion = descripcion.toLowerCase();
          String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND LOWER(a.descripcion) LIKE :descripcion";
          Query creaQuery = em.createQuery(query);
         // List<Object[]> obj = new ArrayList<>();
          creaQuery.setParameter("estadoAccion", true);
-         creaQuery.setParameter("descripcion", descripcion);
+         creaQuery.setParameter("descripcion", "%"+descripcion+"%");
          
          return creaQuery.getResultList();
      }

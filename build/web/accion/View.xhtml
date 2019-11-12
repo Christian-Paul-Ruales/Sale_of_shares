@@ -37,7 +37,7 @@
                                     
                                 </div>
                                 <div class="col">
-                                    <h:commandButton action="/accion/buy?faces-redirect=true" class="btn btn-success" value="Comprar" style="width: 100%;"></h:commandButton>
+                                    <h:commandButton rendered="#{usuarioController.LoggedUser().idUsuario!=accionController.selected.idUsuario.idUsuario}" action="/accion/buy?faces-redirect=true" class="btn btn-success" value="Comprar" style="width: 100%;"></h:commandButton>
 
                                     
                                 </div>

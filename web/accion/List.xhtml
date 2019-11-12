@@ -3,71 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="./../templates/navbar.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAccionTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    <h:panelGrid  columns="1" cellpadding="25px">
+
+                    <c:forEach items="#{accionController.elements}" var="item">
+                       
+                            <h:commandLink class="btn btn-outline-dark" action="#{accionController.ShowAccionsByDescription()}">
+                                        <h:outputText value="#{item.descripcion}"/>
+                                        <h:outputText value="#{item.idEmpresa.nombre}%"/><br/><br/><br/>
+                                        <h:outputText value="Disponibilidad: #{item.cantidad}   Porcentaje:#{item.valorPorcentual}  Precio: #{item.valorNominal}$"/>
+                                        <f:param name="id" value="#{item.idAccion}" />
+
+                            </h:commandLink>
+                        
+                        
+                        
+                    </c:forEach>
+                </h:panelGrid>
+                    <hr></hr>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListAccionEmpty}" rendered="#{accionController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{accionController.items.rowCount > 0}">
-                    <h:outputText value="#{accionController.pagination.pageFirstItem + 1}..#{accionController.pagination.pageLastItem + 1}/#{accionController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{accionController.previous}" value="#{bundle.Previous} #{accionController.pagination.pageSize}" rendered="#{accionController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{accionController.next}" value="#{bundle.Next} #{accionController.pagination.pageSize}" rendered="#{accionController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{accionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_idAccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idAccion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_descripcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_estadoAccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.estadoAccion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_valorPorcentual}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorPorcentual}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_valorNominal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorNominal}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccionTitle_idUsuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idUsuario}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{accionController.prepareView}" value="#{bundle.ListAccionViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{accionController.prepareEdit}" value="#{bundle.ListAccionEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{accionController.destroy}" value="#{bundle.ListAccionDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+               
                 <br />
                 <h:commandLink action="#{accionController.prepareCreate}" value="#{bundle.ListAccionCreateLink}"/>
                 <br />

@@ -5,33 +5,38 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="./../templates/navbar.xhtml">
         <ui:define name="title">
             <div class="container">
                 <h:outputText value="#{bundle.CreateUsuarioTitle}"></h:outputText>
             </div>
         </ui:define>
         
-        <ui:define name="body">
+        <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <div class="container">
+            <div class="container" style="margin-top: 25px">
                 <h:form>
                     
-                    <div class="card col-4">
+                    <div class="card col-6">
+                        <h3><b><h:outputText value="Registrarse"></h:outputText></b></h3>
+                        <hr/>
                         <h:panelGrid columns="2">
+                            
                             <h:outputLabel value="Cedula/RUC:" for="ciRuc" />
-                            <h:inputText id="ciRuc" value="#{usuarioController.selected.ciRuc}" title="#{bundle.CreateUsuarioTitle_ciRuc}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_ciRuc}"/>
+                            <h:inputText id="ciRuc" value="#{usuarioController.selected.ciRuc}" title="#{bundle.CreateUsuarioTitle_ciRuc}" required="true" requiredMessage="Ingrese una cedula o RUC en caso de ser empresa"/>
                             <h:outputLabel value="Nombre:" for="nombre" />
-                            <h:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}"/>
+                            <h:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="Ingrese su nombre o el de su sociedad"/>
 
                             <h:outputLabel value="Correo" for="correo" />
-                            <h:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_correo}"/>
+                            <h:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="Ingrese un correo"/>
                             <h:outputLabel value="Clave" for="clave" />
-                            <h:inputSecret id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_clave}"/>
+                            <h:inputSecret id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="Ingrese una clave"/>
                             <h:outputLabel value="Vuelva a escribir la clave" for="clave" />
-                            <h:inputSecret id="clave2"  title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_clave}"/>
+                            <h:inputSecret id="clave2" value="#{usuarioController.pass2}" title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="Ingrese nuevamente su clave">
+                               
+                            </h:inputSecret>
 
 
                             <h:outputLabel value="Que Usuario eres" for="idTipousuario" />
@@ -51,11 +56,6 @@
                     
                     <br />
                     
-                    
-                    <h:commandLink  action="#{usuarioController.prepareList}" value="#{bundle.CreateUsuarioShowAllLink}" immediate="true"/>
-                    <br />
-                    <br />
-                    <h:link outcome="/index" value="#{bundle.CreateUsuarioIndexLink}"/>
                 </h:form>
                 
             </div>

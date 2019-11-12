@@ -10,23 +10,19 @@
             Iniciar Sesion
         </title>
     </head>
-    <ui:composition template="/template.xhtml">
-         <div class="container">
-        <ui:define name="title">
-           
-                <h:outputText value="Iniciar Sesion"></h:outputText>
-           
-        </ui:define>
-              </div>
+    <ui:composition template="./../templates/navbar.xhtml">
         
-        <ui:define name="body">
+        
+        <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <div class="container">
+            <div class="container" style="margin-top: 25px">
                 <h:form>
                     
-                    <div class="card col-4">
+                    <div class="card col-6">
+                        <b> <h:outputText value="Iniciar Sesion"></h:outputText></b>
+                        <hr/>
                         <h:panelGrid columns="2">
                             
                             <h:outputLabel value="Correo" for="correo" />

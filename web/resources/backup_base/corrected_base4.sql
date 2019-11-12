@@ -5,7 +5,7 @@
 -- Dumped from database version 11.2
 -- Dumped by pg_dump version 11.2
 
--- Started on 2019-11-10 23:23:51
+-- Started on 2019-11-11 23:35:21
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -332,6 +332,7 @@ COPY public.accion (id_accion, id_usuario, descripcion, estado_accion, valor_por
 16	1	Ventas cortas	t	2.00	5.00	1	1
 17	1	Ventas cortas	t	2.00	5.00	1	1
 11	3	Ventas cortas	t	2.00	5.00	11	3
+18	4	Las mejores acciones de tu vida	t	4.50	2.00	9	4
 \.
 
 
@@ -393,6 +394,7 @@ COPY public.tipo_usuario (id_tipousuario, descripcion) FROM stdin;
 COPY public.usuario (id_usuario, id_tipousuario, ci_ruc, nombre, capital, correo, clave, valor_empresa) FROM stdin;
 1	2	1726924168	Christian Ruales	\N	cruales@gmail.com	1234	\N
 3	1	1726772211001	La Favorita	\N	gerencia@lafavorita.ec	1234	\N
+4	1	1726889900	Cayambe S.A	\N	cayambe@cayambesa.com	cayambe	\N
 \.
 
 
@@ -402,7 +404,7 @@ COPY public.usuario (id_usuario, id_tipousuario, ci_ruc, nombre, capital, correo
 -- Name: accion_id_accion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.accion_id_accion_seq', 17, true);
+SELECT pg_catalog.setval('public.accion_id_accion_seq', 19, true);
 
 
 --
@@ -447,7 +449,7 @@ SELECT pg_catalog.setval('public.tipo_usuario_id_tipousuario_seq', 2, true);
 -- Name: usuario_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_usuario_seq', 3, true);
+SELECT pg_catalog.setval('public.usuario_id_usuario_seq', 4, true);
 
 
 --
@@ -672,7 +674,7 @@ ALTER TABLE ONLY public.usuario
     ADD CONSTRAINT fk_usuario_tipoaccio_tipo_usu FOREIGN KEY (id_tipousuario) REFERENCES public.tipo_usuario(id_tipousuario) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
--- Completed on 2019-11-10 23:23:52
+-- Completed on 2019-11-11 23:35:23
 
 --
 -- PostgreSQL database dump complete

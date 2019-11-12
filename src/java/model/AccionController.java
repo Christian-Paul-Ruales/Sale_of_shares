@@ -5,7 +5,6 @@ import model.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,11 +48,26 @@ public class AccionController implements Serializable {
         this.Search = Search;
     }
     
-    public List<Accion> getfindAccions(){
-    
+    public String SearchAccions(){
       this.Elements=  getFacade().findByDescripcion(Search);
-      return this.Elements;
+        for (Accion item : Elements) {
+                   System.out.println("+-----------------------------------------+++++++++++++++++++++++-Entro a SearchAccions:"+item.getDescripcion());
+ 
+        }
+       System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++SI ENTRO A SEARCH ACCIONS" +getSearch());
+
+      return "/accion/List?faces-redirect=true";
     }
+
+    public List<Accion> getElements() {
+        System.out.println("              ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++         --------------------------------"+getSearch());
+        return Elements;
+    }
+
+    public void setElements(List<Accion> Elements) {
+        this.Elements = Elements;
+    }
+    
     
     public AccionController() {
     }
@@ -128,7 +142,7 @@ public class AccionController implements Serializable {
     public String prepareView() {
         current = (Accion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "/accion/View";
+        return "/accion/View?faces-redirect=true";
     }
 
     
@@ -197,7 +211,7 @@ public class AccionController implements Serializable {
     public String prepareCreate() {
         current = new Accion();
         selectedItemIndex = -1;
-        return "Create";
+        return "/accion/Create?faces-redirect=true";
     }
 
     public String create() {
@@ -228,12 +242,13 @@ public class AccionController implements Serializable {
     public String prepareEdit() {
         current = (Accion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "/accion/Edit?faces-redirect=true";
     }
 
     /**Genero un precio Final*/
     public BigDecimal GenerateRealValue(){
-        System.out.println("-------------------------------------------------------Valor Nominal:"+current.getValorNominal());
+        try {
+            System.out.println("-------------------------------------------------------Valor Nominal:"+current.getValorNominal());
         BigDecimal RealValue=current.getValorNominal();
         
         double cast = Double.parseDouble(RealValue.toString()) ;
@@ -242,6 +257,11 @@ public class AccionController implements Serializable {
          BigDecimal retornar = new BigDecimal(Real_final_value);
         
          return retornar;
+        } catch (Exception e) {
+            System.err.println("----------------------------------------------------------Error al generar valor Nominal:"+e.getMessage());
+            return new BigDecimal(0);
+        }
+        
     
     }
     public String update() {
@@ -250,7 +270,7 @@ public class AccionController implements Serializable {
             current.setCantidad(current.getCantidad()-Number_Accions);
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionUpdated"));
-            return "View";
+            return "/accion/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -263,7 +283,7 @@ public class AccionController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "/usuario/workspace_user?faces-redirect=true";
     }
 
     public String destroyAndView() {
@@ -271,20 +291,20 @@ public class AccionController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "/accion/View";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "/accion/List";
         }
     }
 
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionDeleted"));
+            JsfUtil.addSuccessMessage("Accion Eliminada");
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e,"Error ha pcurrido al eliminar la accion");
         }
     }
 

@@ -14,9 +14,12 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
-        
-                <h:panelGrid columns="2">
+            <div class="container">
+                <h3><b><h:outputLabel value="Crear una accion"></h:outputLabel></b></h3>
+                <hr/>
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="10px">
+                     
                     <h:outputLabel value="Numero de Acciones a vender:" for="txt1" />
                    
                     <h:panelGrid columns="1" style="margin-bottom: 10px">
@@ -37,14 +40,20 @@
                    
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{accionController.create}" value="#{bundle.CreateAccionSaveLink}" />
+                <h:commandLink class="btn btn-success" action="#{accionController.create}" value="Crear Accion" />
                 <br />
                 <br />
                 <h:commandLink action="#{accionController.prepareList}" value="#{bundle.CreateAccionShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateAccionIndexLink}"/>
-            </h:form>
+                <h:link class="btn btn-warning" outcome="/usuario/workspace_user" value="Monitorear las acciones"/>
+                </h:form>
+            </div>
+            
+            
+        
+               
+            
         </ui:define>
     </ui:composition>
 

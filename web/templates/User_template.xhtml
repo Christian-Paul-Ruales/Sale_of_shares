@@ -21,54 +21,35 @@
         <div id="top">
             <ui:insert name="top">
             
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Venta de Acciones</a>
+                <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+                     <h:link class="navbar-brand" value="Venta de Acciones" outcome="/index"></h:link>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                       <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                          </div>
-                        </li>
+                        
                           
                           
-                        <li class="nav-item">
-                          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
+                        
                       </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
                             <li>
-                                <h:form>
-                                    <h:inputText a:placeholder="Buscar"></h:inputText>
-                                    <p:commandButton icon="ui-icon-document"></p:commandButton>
-                                    
-                                </h:form> 
+                                 <h:form class="form-inline my-2 my-lg-0">
+                                    <h:inputText class="form-control mr-sm-4" a:placeholder="Buscar" value="#{accionController.search}"> </h:inputText>
+                                    <h:commandButton class="btn btn-outline-success my-2 my-sm-0" value="Buscar" action="#{accionController.SearchAccions()}"></h:commandButton>
+                                </h:form>
                             </li>
                             <li class="nav-item">
                                 
-                                <h:outputText value="#{usuarioController.LoggedUser().nombre}"></h:outputText>
+                                <h:outputLabel class="nav-link" value="#{usuarioController.LoggedUser().nombre}"></h:outputLabel>
                             </li>
                             <li class="nav-item " >
                                 <h:form>
                                     
 
-                                    <h:commandButton  rendered="#{usuarioController.LoggedUser().idTipousuario.descripcion=='Empresa'}" class="nav-link" value="Venta Acciones" action="/accion/Create?faces-redirect=true"> </h:commandButton>
+                                    <h:commandLink rendered="#{usuarioController.LoggedUser().idTipousuario.descripcion=='Empresa'}" class="nav-link" value="Vender Acciones" action="/accion/Create?faces-redirect=true"> </h:commandLink>
                                     
 
                                 </h:form>
