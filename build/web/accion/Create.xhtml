@@ -40,13 +40,19 @@
                    
                 </h:panelGrid>
                 <br />
-                <h:commandLink class="btn btn-success" action="#{accionController.create}" value="Crear Accion" />
+                <div class="row">
+                    <div class="col-3">
+                                        <h:commandLink class="btn btn-success" action="#{accionController.create}" value="Crear Accion" />
+
+                    </div>
+                    <div class="col">
+                        <h:commandLink class="btn btn-warning" action="/usuario/workspace_user?faces-redirect=true" value="Monitorear Acciones" immediate="true" />
+
+
+                    </div>
+                </div>
                 <br />
-                <br />
-                <h:commandLink action="#{accionController.prepareList}" value="#{bundle.CreateAccionShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link class="btn btn-warning" outcome="/usuario/workspace_user" value="Monitorear las acciones"/>
+                
                 </h:form>
             </div>
             

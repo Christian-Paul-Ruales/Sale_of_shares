@@ -26,9 +26,9 @@
                         <h:panelGrid columns="2">
                             
                             <h:outputLabel value="Correo" for="correo" />
-                            <h:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_correo}" a:placeholder="example@example.com"/>
+                            <h:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="Por favor ingrese su correo" a:placeholder="example@example.com"/>
                             <h:outputLabel value="Clave" for="clave" />
-                            <h:inputSecret id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_clave}"/>
+                            <h:inputSecret id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="Por favor ingrese la clave"/>
                             
                             <br/><br/><h:column></h:column>
                             <h:commandLink class="btn btn-info" action="#{usuarioController.createSession()}" value="Iniciar Sesion" />
@@ -39,13 +39,7 @@
                     </div>
                     
                     <br />
-                    <h:commandLink action="#{usuarioController.create}" value="#{bundle.CreateUsuarioSaveLink}" />
-                    <br />
-                    <br />
-                    <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.CreateUsuarioShowAllLink}" immediate="true"/>
-                    <br />
-                    <br />
-                    <h:link outcome="/index" value="#{bundle.CreateUsuarioIndexLink}"/>
+                   
                 </h:form>
                 
             </div>
