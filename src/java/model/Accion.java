@@ -69,6 +69,10 @@ public class Accion implements Serializable {
     @Column(name = "cantidad")
     private Integer cantidad;
     
+     @Column(name = "valor_real")
+    private BigDecimal valorReal;
+    
+    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -132,6 +136,33 @@ public class Accion implements Serializable {
 
     public void setValorNominal(BigDecimal valorNominal) {
         this.valorNominal = valorNominal;
+    }
+
+    public BigDecimal getValorReal() {
+        return valorReal;
+    }
+
+    public void setValorReal(BigDecimal valorReal) {
+        this.valorReal = valorReal;
+    }
+    
+     public BigDecimal GenerateRealValue(){
+        try {
+            System.out.println("-------------------------------------------------------Valor Nominal:"+getValorNominal());
+        BigDecimal RealValue=getValorNominal();
+        
+        double cast = Double.parseDouble(RealValue.toString()) ;
+        double Quintaparte =Math.random() * cast;
+        double Real_final_value = cast + Quintaparte;
+         BigDecimal retornar = new BigDecimal(Real_final_value);
+        
+         return retornar;
+        } catch (Exception e) {
+            System.err.println("----------------------------------------------------------Error al generar valor Nominal:"+e.getMessage());
+            return new BigDecimal(0);
+        }
+        
+    
     }
 
     public Usuario getIdUsuario() {

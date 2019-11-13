@@ -27,5 +27,17 @@ public class HistoricoVentasFacade extends AbstractFacade<HistoricoVentas> {
     public HistoricoVentasFacade() {
         super(HistoricoVentas.class);
     }
+    public void insertWithQuery(HistoricoVentas hv) {
+        System.out.println("--------------------------------------------------Entrando a historico facade"+hv.getIdAccion().getIdAccion()+ " - " +hv.getIdUsuario().getIdUsuario() + " " +hv.getFechaVenta()+ " - "+hv.getEstadoActual() + " - "+hv.getValorVenta()+ " - " +hv.getValorReal()+ " - "+ hv.getCantidad());
+    em.createNativeQuery("INSERT INTO HistoricoVentas(idAccion, idUsuario, fechaVenta, estadoActual, valorVenta, valorReal, cantidad) VALUES (?,?,?,?,?,?,?)")
+      .setParameter(1, hv.getIdAccion())
+      .setParameter(2, hv.getIdUsuario())
+      .setParameter(3, hv.getFechaVenta())
+      .setParameter(4, hv.getEstadoActual())
+      .setParameter(5, hv.getValorVenta())
+      .setParameter(6, hv.getValorReal())
+            .setParameter(7, hv.getCantidad())
+      .executeUpdate();
+}
     
 }

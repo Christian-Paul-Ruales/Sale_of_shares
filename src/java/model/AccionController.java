@@ -139,6 +139,10 @@ public class AccionController implements Serializable {
         return "List";
     }
 
+    public String prepareListInUser() {
+        recreateModel();
+        return "/usuario/workspace_user?faces-redirect=true";
+    }
     public String prepareView() {
         current = (Accion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -167,45 +171,53 @@ public class AccionController implements Serializable {
     }
     
     public String Buy(){
-        BigDecimal valor_real = GenerateRealValue();
+        
 
         update();
+        BigDecimal valor_real = current.GenerateRealValue();
         UsuarioController us = new UsuarioController();
         Usuario accionist = us.LoggedUser();
         current.setIdUsuario(accionist);
         current.setCantidad(Number_Accions);
-        
+        //create();
         /**Guardo la venta*/
-        HistoricoVentasController hvc= new HistoricoVentasController();
-        
-        hvc.getSelected().setIdAccion(current);
-        
-        hvc.getSelected().setIdUsuario(accionist);
-        Date objDate = new Date();
-        hvc.getSelected().setFechaVenta(objDate);
-        hvc.getSelected().setEstadoActual(1);
-        
-        
-        hvc.getSelected().setValorReal(valor_real);
-        System.out.println("-------------------------------------------------Buy accion cotroller Valor real: "+valor_real);
-        BigDecimal cant = new BigDecimal(current.getCantidad());
-        BigDecimal bd = valor_real.multiply(cant);
-         System.out.println("-------------------------------------------------Buy accion cotroller Valor Venta: "+bd);
+        try {
+              HistoricoVentas hive=new HistoricoVentas();
+                HistoricoVentasController hvc= new HistoricoVentasController();
 
-        hvc.getSelected().setValorVenta(bd);
-                 System.out.println("-------------------------------------------------Buy accion cotroller Cantidad "+current.getCantidad());
+                hive.setIdAccion(current);
 
-        hvc.getSelected().setCantidad(current.getCantidad());
-       
-        hvc.create();
+                hive.setIdUsuario(accionist);
+                Date objDate = new Date();
+                hive.setFechaVenta(objDate);
+                hive.setEstadoActual(1);
+
+
+                hive.setValorReal(valor_real);
+                System.out.println("-------------------------------------------------Buy accion cotroller Valor real: "+valor_real);
+                BigDecimal cant = new BigDecimal(current.getCantidad());
+                BigDecimal bd = valor_real.multiply(cant);
+                 System.out.println("-------------------------------------------------Buy accion cotroller Valor Venta: "+bd);
+
+                hive.setValorVenta(bd);
+                         System.out.println("-------------------------------------------------Buy accion cotroller Cantidad "+current.getCantidad());
+
+                hive.setCantidad(current.getCantidad());
+                //HistoricoVentas hv = hvc.getSelected();
+                hvc.createsetHistorico(hive);
+            
+        } catch (Exception e) {
+        }
+      
+        
         
         
         create();
         
         
-       
+       recreateModel();
         
-        return "/usuario/workspace_user";
+        return "/usuario/workspace_user?faces-redirect=true";
     }
     
     public String prepareCreate() {
@@ -246,24 +258,7 @@ public class AccionController implements Serializable {
     }
 
     /**Genero un precio Final*/
-    public BigDecimal GenerateRealValue(){
-        try {
-            System.out.println("-------------------------------------------------------Valor Nominal:"+current.getValorNominal());
-        BigDecimal RealValue=current.getValorNominal();
-        
-        double cast = Double.parseDouble(RealValue.toString()) ;
-        double Quintaparte =Math.random() * cast;
-        double Real_final_value = cast + Quintaparte;
-         BigDecimal retornar = new BigDecimal(Real_final_value);
-        
-         return retornar;
-        } catch (Exception e) {
-            System.err.println("----------------------------------------------------------Error al generar valor Nominal:"+e.getMessage());
-            return new BigDecimal(0);
-        }
-        
-    
-    }
+   
     public String update() {
         try {
             

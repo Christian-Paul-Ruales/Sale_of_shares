@@ -74,7 +74,7 @@ public class HistoricoVentasController implements Serializable {
     public String prepareCreate() {
         current = new HistoricoVentas();
         selectedItemIndex = -1;
-        return "Create";
+        return "/usuario/workspace_user?faces-redirect=true";
     }
 
     public String create() {
@@ -94,6 +94,26 @@ public class HistoricoVentasController implements Serializable {
        
           
     }
+    
+     public String createsetHistorico(HistoricoVentas hv) {
+        System.out.println("-------------------------------------------Entrando a create historico ventas ID ACCION: "+current.getIdAccion().getIdAccion());
+                System.out.println("-------------------------------------------Entrando a create historico ventas ID USUARIO: "+current.getIdUsuario().getIdUsuario());
+
+                System.out.println("-------------------------------------------Entrando a create historico ventas FECHA VENTA: "+current.getFechaVenta());
+        
+                System.out.println("-------------------------------------------Entrando a create historico ventas ESTADO ACTUAL: "+current.getEstadoActual());
+                System.out.println("-------------------------------------------Entrando a create historico ventas VALOR VENTA: "+current.getValorVenta());
+                System.out.println("-------------------------------------------Entrando a create historico ventas VALOR REAL: "+current.getValorReal());
+                System.out.println("-------------------------------------------Entrando a create historico ventas CAMTIDAD: "+current.getCantidad());
+                
+            getFacade().insertWithQuery(hv);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HistoricoVentasCreated"));
+            return prepareCreate();
+       
+          
+    }
+    
+    
 
     public String prepareEdit() {
         current = (HistoricoVentas) getItems().getRowData();
