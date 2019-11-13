@@ -7,6 +7,8 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Collection;
 import javax.faces.context.FacesContext;
 import javax.persistence.Basic;
@@ -20,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -146,19 +149,63 @@ public class Accion implements Serializable {
         this.valorReal = valorReal;
     }
     
-     public BigDecimal GenerateRealValue(){
+    /**                   Genera el valor real, el precio final ----------------*/
+        public BigDecimal GenerateRealValue(){
         try {
             System.out.println("-------------------------------------------------------Valor Nominal:"+getValorNominal());
-        BigDecimal RealValue=getValorNominal();
-        
-        double cast = Double.parseDouble(RealValue.toString()) ;
-        double Quintaparte =Math.random() * cast;
-        double Real_final_value = cast + Quintaparte;
-         BigDecimal retornar = new BigDecimal(Real_final_value);
-        
-         return retornar;
+            BigDecimal RealValue=getValorNominal();
+
+            double cast = Double.parseDouble(RealValue.toString()) ;
+            double Quintaparte =(Math.random() * cast)/5;
+            double Real_final_value = cast + Quintaparte;
+            BigDecimal retornar = new BigDecimal(Real_final_value);
+           
+            System.out.println("------------------------------------------Generate real value descipcion : " +getDescripcion());
+          int num =0;
+          int cast2 =(int)cast;
+          int M =0 ;
+            try {
+                 String query = "SELECT h FROM HistoricoVentas h WHERE h.idAccion.descripcion=:descripcion";
+         //Query creaQuery = encreateQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+        // creaQuery.setParameter("descripcion", descripcion);
+          //creaQuery.getResultList();
+          AccionFacade AF= new AccionFacade();
+                num= AF.findMovementActions(getDescripcion()).size();
+                System.out.println(" ---------------------------------- num :"+num);
+                
+                
+                if(num>5){
+                    M=(int)(cast/2);
+                }
+                if(num<=5 && num>1){
+                    M=0;
+                    cast2=cast2/2;
+
+                }
+                if(num==1){
+                        M=0;
+                        cast2=1;
+                    }
+                if(num==0){
+                        M=-10;
+                        cast2=0;
+                    }
+
+            
+            } catch (Exception calculo) {
+                            System.err.println("----------------------------------------------------------Error en el calculo:"+calculo.toString());
+
+                
+            }
+            
+              int valorEntero = (int) Math.floor(Math.random()*(( cast2-M+1)+M));
+              BigDecimal value_accions = new BigDecimal(valorEntero);
+             retornar=retornar.add(value_accions);
+             retornar = retornar.setScale(2, RoundingMode.HALF_UP);
+             return retornar;
         } catch (Exception e) {
-            System.err.println("----------------------------------------------------------Error al generar valor Nominal:"+e.getMessage());
+            System.err.println("----------------------------------------------------------Error al generar valor Nominal:"+e.toString());
             return new BigDecimal(0);
         }
         

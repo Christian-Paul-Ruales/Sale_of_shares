@@ -31,7 +31,7 @@ public class AccionFacade extends AbstractFacade<Accion> {
         super(Accion.class);
     }
     public List<Accion> findAccionsbyIdUser(Usuario us,int[] range) {
-        String query = "SELECT a FROM Accion a WHERE a.idUsuario = :idusuario and a.estadoAccion = :estadoAccion";
+        String query = "SELECT a FROM Accion a WHERE a.idUsuario = :idusuario and a.estadoAccion = :estadoAccion and a.cantidad>0";
         Query createQuery = em.createQuery(query);
         createQuery.setParameter("idusuario", us);
             createQuery.setParameter("estadoAccion", true);
@@ -71,5 +71,34 @@ public class AccionFacade extends AbstractFacade<Accion> {
          
          return creaQuery.getResultList();
      }
+        
+        public List<Accion> findMyAccions(String descripcion,Usuario idUsuario){
+            descripcion = descripcion.toLowerCase();
+         String query = "SELECT a FROM Accion a WHERE a.estadoAccion = :estadoAccion AND a.descripcion=:descripcion and a.idUsuario=:idUsuario";
+         Query creaQuery = em.createQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+         creaQuery.setParameter("estadoAccion", true);
+         creaQuery.setParameter("descripcion", descripcion);
+         creaQuery.setParameter("idUsuario", idUsuario);
+         return creaQuery.getResultList();
+     }
+        
+        public List<HistoricoVentas> findMovementActions(String descripcion){
+            //descripcion = descripcion.toLowerCase();
+         String query = "SELECT h FROM HistoricoVentas h WHERE h.idAccion.descripcion=:descripcion";
+         Query creaQuery = em.createQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+         creaQuery.setParameter("descripcion", descripcion);
+         return creaQuery.getResultList();
+     }
+        /**
+        
+        public int countByUser() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }*/
     
 }

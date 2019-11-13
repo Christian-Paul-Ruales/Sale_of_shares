@@ -5,9 +5,11 @@
  */
 package model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -39,5 +41,14 @@ public class HistoricoVentasFacade extends AbstractFacade<HistoricoVentas> {
             .setParameter(7, hv.getCantidad())
       .executeUpdate();
 }
+    
+    public List<HistoricoVentas> findMovementActions(int descripcion){
+            //descripcion = descripcion.toLowerCase();
+         String query = "SELECT h FROM HistoricoVentas h WHERE h.idAccion.idAccion=:descripcion";
+         Query creaQuery = em.createQuery(query);
+        // List<Object[]> obj = new ArrayList<>();
+         creaQuery.setParameter("descripcion", descripcion);
+         return creaQuery.getResultList();
+     }
     
 }

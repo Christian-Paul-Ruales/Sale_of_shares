@@ -19,10 +19,21 @@
                 <h:outputText escape="false" value="#{bundle.ListAccionEmpty}" rendered="#{accionController.itemsById.rowCount == 0}"/>
                 <h:panelGroup rendered="#{accionController.itemsById.rowCount > 0}">
                     <h:outputText value="#{accionController.paginationbyId.pageFirstItem + 1}..#{accionController.paginationbyId.pageLastItem + 1}/#{accionController.paginationbyId.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{accionController.previous}" value="#{bundle.Previous} #{accionController.paginationbyId.pageSize}" rendered="#{accionController.paginationbyId.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{accionController.next}" value="#{bundle.Next} #{accionController.paginationbyId.pageSize}" rendered="#{accionController.paginationbyId.hasNextPage}"/>&nbsp;
+                    <h:commandLink class="btn btn-warning" action="#{accionController.previousbyId()}" value="Anterior #{accionController.paginationbyId.pageSize}" rendered="#{accionController.paginationbyId.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink class="btn btn-danger" action="#{accionController.nextbyid()}" value="Siguiente #{accionController.paginationbyId.pageSize}" rendered="#{accionController.paginationbyId.hasNextPage}"/>&nbsp;
                     <h:dataTable class="table table-bordered" value="#{accionController.itemsById}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Empresa"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEmpresa.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Acual Dueño"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario.nombre}"/>
+                        </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAccionTitle_descripcion}"/>
@@ -43,16 +54,22 @@
                             <h:outputText value="#{item.valorNominal}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="Valor Real">
+                            <f:facet name="header">
                                 <h:outputText value="Valor Real Actual"/>
                             </f:facet>
-                            <h:outputText value="#{item.GenerateRealValue()}"/>
+                            <h:outputText value="#{item.valorReal}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="Cantidad">
+                            <f:facet name="header">
                                 <h:outputText value="Cantidad"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cambio"/>
+                            </f:facet>
+                            <h:outputText style="width: " value="#{item.cantidad}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

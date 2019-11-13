@@ -4,6 +4,7 @@ import model.util.JsfUtil;
 import model.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -183,6 +184,11 @@ public class HistoricoVentasController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+    
+     public List<HistoricoVentas> getByDescription() {
+         System.out.println("His-----------------------------------------------------Historico Ventas: "+current.getIdAccion().getDescripcion());
+        return getFacade().findMovementActions(current.getIdAccion().getIdAccion());
     }
 
     private void recreateModel() {

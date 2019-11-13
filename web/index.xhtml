@@ -22,24 +22,7 @@
             <ui:define name="content">
                 <ui:include src="./templates/carrousel.xhtml"></ui:include>
                 <div class="container" >
-                    <h:panelGrid columns="3" cellpadding = "30" cellspacing = "10" >
-                        <h:link outcome="index" class="btn btn-light" style="border-radius: 0" >
-                            <h:graphicImage  value="resources/img/Acciones.png" width="65%" height="200px" ></h:graphicImage>
-                                <br/>
-                                Comprar Acciones
-                        </h:link>
-                        <h:link outcome="index" class="btn btn-light" >
-                            <h:graphicImage  value="resources/img/monitoriza.png" width="65%" height="200px" ></h:graphicImage>
-                                <br/>
-                                Comprar Acciones
-                        </h:link>
-                        <h:link outcome="index" class="btn btn-light" >
-                            <h:graphicImage  value="resources/img/Acciones.png" width="65%" height="200px" ></h:graphicImage>
-                                <br/>
-                                Comprar Acciones
-                        </h:link>
-
-                    </h:panelGrid>
+                    
                     <h:form>
                         <h:panelGrid columns="3" cellpadding="20">
 
@@ -60,7 +43,7 @@
                                                       
                                                   </div>
                                                   <div class="col">
-                                                      <h:outputText value="Precio: #{item.valorNominal} $"></h:outputText>
+                                                      <h:outputText value="Precio: #{item.GenerateRealValue()} $"></h:outputText>
                                                       
                                                   </div>
                                               </div>
@@ -68,8 +51,6 @@
                                           </div>
                                         
                                          <f:param name="id" value="#{item.idAccion}" />
-
-
                                     </h:commandLink>
 
                              </c:forEach>
@@ -84,9 +65,11 @@
         
 
 
-        <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
-            <br />
         
+            <br />
+
+        <h:outputScript name="js/bootstrap.min.js"></h:outputScript>
+
     </h:body>
 
 

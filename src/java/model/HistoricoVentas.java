@@ -72,9 +72,15 @@ public class HistoricoVentas implements Serializable {
     @JoinColumn(name = "id_accion", referencedColumnName = "id_accion")
     @ManyToOne
     private Accion idAccion;
+   
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuario idUsuario;
+    
+    
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id_usuario")
+    @ManyToOne
+    private Usuario idEmpresa;
 
     public HistoricoVentas() {
     }
@@ -143,6 +149,15 @@ public class HistoricoVentas implements Serializable {
         return idUsuario;
     }
 
+    public Usuario getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Usuario idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
+    
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }

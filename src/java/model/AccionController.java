@@ -5,6 +5,7 @@ import model.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,8 @@ public class AccionController implements Serializable {
     private List<Accion> Elements= new ArrayList<Accion>();
     @EJB
     private model.AccionFacade ejbFacade;
+    
+    private model.HistoricoVentasFacade hvFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private Integer Number_Accions;
@@ -94,7 +97,6 @@ public class AccionController implements Serializable {
 
     
 
-    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -172,7 +174,7 @@ public class AccionController implements Serializable {
     
     public String Buy(){
         
-
+        current.setCantidad(current.getCantidad()-Number_Accions);
         update();
         BigDecimal valor_real = current.GenerateRealValue();
         UsuarioController us = new UsuarioController();
@@ -181,38 +183,11 @@ public class AccionController implements Serializable {
         current.setCantidad(Number_Accions);
         //create();
         /**Guardo la venta*/
-        try {
-              HistoricoVentas hive=new HistoricoVentas();
-                HistoricoVentasController hvc= new HistoricoVentasController();
-
-                hive.setIdAccion(current);
-
-                hive.setIdUsuario(accionist);
-                Date objDate = new Date();
-                hive.setFechaVenta(objDate);
-                hive.setEstadoActual(1);
-
-
-                hive.setValorReal(valor_real);
-                System.out.println("-------------------------------------------------Buy accion cotroller Valor real: "+valor_real);
-                BigDecimal cant = new BigDecimal(current.getCantidad());
-                BigDecimal bd = valor_real.multiply(cant);
-                 System.out.println("-------------------------------------------------Buy accion cotroller Valor Venta: "+bd);
-
-                hive.setValorVenta(bd);
-                         System.out.println("-------------------------------------------------Buy accion cotroller Cantidad "+current.getCantidad());
-
-                hive.setCantidad(current.getCantidad());
-                //HistoricoVentas hv = hvc.getSelected();
-                hvc.createsetHistorico(hive);
-            
-        } catch (Exception e) {
-        }
-      
         
         
         
-        create();
+        
+        divade();
         
         
        recreateModel();
@@ -236,6 +211,7 @@ public class AccionController implements Serializable {
                  current.setIdUsuario(us);
                  current.setEstadoAccion(true);
                  current.setIdEmpresa(us);
+                 current.setValorReal(current.getValorNominal());
             } catch (Exception e) {
             }
             
@@ -243,6 +219,49 @@ public class AccionController implements Serializable {
                getFacade().create(current);
                 JsfUtil.addSuccessMessage("Accion Creada");
               
+            
+           return prepareCreate();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    
+    public String divade() {
+        
+        try {
+            FacesContext context= FacesContext.getCurrentInstance();
+                
+            Usuario us=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
+                 
+            String desc=current.getDescripcion();
+            
+            List<Accion> myAccions=getFacade().findMyAccions(desc, us);
+
+            try {
+                
+                
+                
+                
+                
+                 
+                 current.setIdUsuario(us);
+                 current.setEstadoAccion(true);
+                 //current.setIdEmpresa(us);
+                 current.setValorReal(current.GenerateRealValue());
+            } catch (Exception e) {
+            }
+            if(myAccions.size()==0){
+            
+               getFacade().create(current);
+                JsfUtil.addSuccessMessage("Accion Creada");
+            }else{
+                
+                Integer New_Cantidad =current.getCantidad()+ Number_Accions;
+                current.setCantidad(New_Cantidad);
+                getFacade().edit(current);
+            
+            }  
             
            return prepareCreate();
         } catch (Exception e) {
@@ -262,7 +281,7 @@ public class AccionController implements Serializable {
     public String update() {
         try {
             
-            current.setCantidad(current.getCantidad()-Number_Accions);
+            
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccionUpdated"));
             return "/accion/View";
@@ -344,6 +363,11 @@ public class AccionController implements Serializable {
         recreateModel();
         return "List";
     }
+    public String nextbyid() {
+        getPaginationbyId().nextPage();
+        recreateModel();
+        return "/usuario/workspace_user";
+    }
 
     public String previous() {
         getPagination().previousPage();
@@ -351,6 +375,11 @@ public class AccionController implements Serializable {
         return "List";
     }
     
+    public String previousbyId() {
+        getPaginationbyId().previousPage();
+        recreateModel();
+        return "/usuario/workspace_user";
+    }
     /**------------------------------------------------------------- Lista de Acciones---------------*/
     /**Lista de acciones para el index*/
     public DataModel getAccionsForIndex(){

@@ -171,7 +171,7 @@ public class UsuarioController implements Serializable {
                       BigDecimal valor_emp= new BigDecimal(valorEntero);
                       current.setValorEmpresa(valor_emp);
                 }
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
+                JsfUtil.addSuccessMessage("Usuario "+current.getNombre()+"Creado con exito");
                 return prepareCreate();
             }else{
                 JsfUtil.addErrorMessage("Las claves son diferentes");

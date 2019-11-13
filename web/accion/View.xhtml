@@ -23,6 +23,8 @@
 
                                     <p class="card-text">
                                         Acciones por el <h:outputText value="#{accionController.selected.valorPorcentual}%"></h:outputText><br/>
+                                        Empresa: <h:outputText value="#{accionController.selected.idEmpresa.nombre} "></h:outputText><br/>
+
                                         Dueno Actual <h:outputText value="#{accionController.selected.idUsuario.nombre}"></h:outputText><br/>
 
 
@@ -33,7 +35,7 @@
                         <div class="col-4">
                             <div class="row">
                                 <div class="col">
-                                    <h:outputLabel value="#{accionController.selected.valorNominal} $"></h:outputLabel>
+                                    <h:outputLabel value="#{accionController.selected.GenerateRealValue()} $"></h:outputLabel>
                                     
                                 </div>
                                 <div class="col">
@@ -60,7 +62,64 @@
                         </div>
                     </div>
                     
-                    
+                
+                    <h:dataTable class="table table-bordered" value="#{historicoVentasController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaVenta}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor Original"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorVenta}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor de Venta"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorReal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Accion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAccion.descripcion}"/>
+                        </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Empresa"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEmpresa.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Dueño"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario.nombre}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <h:outputLabel value="#{item.valorReal}"></h:outputLabel>
+                            <h:inputText class="btn btn-danger" style="width: #{item.valorReal}%"  readonly=""/>
+                        </h:column>
+                        
+                    </h:dataTable>
                     
                     
                     

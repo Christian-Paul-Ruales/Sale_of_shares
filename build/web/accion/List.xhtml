@@ -10,18 +10,38 @@
         <ui:define name="title">
         </ui:define>
         <ui:define name="content">
+            <div class="container">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    <h:panelGrid  columns="1" cellpadding="25px">
+                    
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    
+                    <h:panelGrid  columns="1" >
 
                     <c:forEach items="#{accionController.elements}" var="item">
                        
-                            <h:commandLink class="btn btn-outline-dark" action="#{accionController.ShowAccionsByDescription()}">
-                                        <h:outputText value="#{item.descripcion}"/>
-                                        <h:outputText value="#{item.idEmpresa.nombre}%"/><br/><br/><br/>
-                                        <h:outputText value="Disponibilidad: #{item.cantidad}   Porcentaje:#{item.valorPorcentual}  Precio: #{item.valorNominal}$"/>
-                                        <f:param name="id" value="#{item.idAccion}" />
+                            <h:commandLink class="btn btn-outline-dark btn-lg" action="#{accionController.ShowAccionsByDescription()}" style="width: 100%;">
+                                        <b><h:outputText value="#{item.descripcion}"/></b><br/>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h:outputText value="Empresa: #{item.idEmpresa.nombre}"/>
+                                            </div>
+                                            <div class="col">
+                                                <h:outputText value="Dueño #{item.idUsuario.nombre}"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                                  <div class="col">
+                                                      <h:outputText value="Disponibilidad: #{item.cantidad}"></h:outputText>
+                                                      
+                                                  </div>
+                                                  <div class="col">
+                                                      <h:outputText value="Precio: #{item.GenerateRealValue()} $"></h:outputText>
+                                                      
+                                                  </div>
+                                              </div>
+                                         <f:param name="id" value="#{item.idAccion}" />
 
                             </h:commandLink>
                         
@@ -30,15 +50,12 @@
                     </c:forEach>
                 </h:panelGrid>
                     <hr></hr>
-                </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListAccionEmpty}" rendered="#{accionController.items.rowCount == 0}"/>
                
                 <br />
-                <h:commandLink action="#{accionController.prepareCreate}" value="#{bundle.ListAccionCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListAccionIndexLink}"/>
+               
             </h:form>
+            </div>
         </ui:define>
     </ui:composition>
 
