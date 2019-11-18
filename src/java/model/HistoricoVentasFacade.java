@@ -42,12 +42,13 @@ public class HistoricoVentasFacade extends AbstractFacade<HistoricoVentas> {
       .executeUpdate();
 }
     
-    public List<HistoricoVentas> findMovementActions(int descripcion){
+    public List<HistoricoVentas> findMovementActionsbydescpcion(String descripcion){
             //descripcion = descripcion.toLowerCase();
-         String query = "SELECT h FROM HistoricoVentas h WHERE h.idAccion.idAccion=:descripcion";
+         String query = "SELECT h FROM HistoricoVentas h WHERE h.idAccion.descripcion=:descripcion";
          Query creaQuery = em.createQuery(query);
         // List<Object[]> obj = new ArrayList<>();
          creaQuery.setParameter("descripcion", descripcion);
+         System.out.println("-----------------------------------------model.HistoricoVentasFacade.findMovementActionsbydescpcion():"+descripcion);
          return creaQuery.getResultList();
      }
     

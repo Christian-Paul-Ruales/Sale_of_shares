@@ -12,7 +12,9 @@
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <p:messages id="messages" showDetail="true" closable="true" >
+                    <p:autoUpdate />
+                </p:messages>
             </h:panelGroup>
             <div class="container">
                 <h3><b><h:outputLabel value="Crear una accion"></h:outputLabel></b></h3>

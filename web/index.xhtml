@@ -27,7 +27,8 @@
                         <h:panelGrid columns="3" cellpadding="20">
 
                             <c:forEach items="#{accionController.accionsinList}" var="item">
-                                    <h:commandLink class="btn btn-light" action="#{accionController.ShowAccionsByDescription()}">
+                                <h:commandLink class="btn btn-light" actionListener="#{accionController.ShowAccionsByDescription()}" action="#{historicoVentasController.ShowHistorico()}">
+
                                         
                                         <div>
                                             <div >
@@ -51,6 +52,8 @@
                                           </div>
                                         
                                          <f:param name="id" value="#{item.idAccion}" />
+                                         <f:param name="desc" value="#{item.descripcion}" />
+
                                     </h:commandLink>
 
                              </c:forEach>

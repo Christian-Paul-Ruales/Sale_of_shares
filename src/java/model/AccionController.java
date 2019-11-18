@@ -153,7 +153,7 @@ public class AccionController implements Serializable {
 
     
     /**----------------------------------------------------------------------------Mostrar las acciones */
-    public String ShowAccionsByDescription() {
+    public void ShowAccionsByDescription() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         int parameter = Integer.parseInt(params.get("id")); 
@@ -163,7 +163,7 @@ public class AccionController implements Serializable {
         this.Number_Accions=number;
         
         //?faces-redirect=true
-        return "/accion/View?faces-redirect=true";
+        //return "/accion/View?faces-redirect=true";
         
     }
     
@@ -217,7 +217,7 @@ public class AccionController implements Serializable {
             
             
                getFacade().create(current);
-                JsfUtil.addSuccessMessage("Accion Creada");
+               JsfUtil.addSuccessMessage("Accion Creada");
               
             
            return prepareCreate();

@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/web/usuario/workspace_user.xhtml</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/web/templates/User_template.xhtml</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/web/usuario/Create.xhtml</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/src/java/Bundle.properties</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/src/java/model/UsuarioFacade.java</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/src/java/model/TipoUsuario.java</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/src/java/model/UsuarioController.java</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/web/template.xhtml</file>
-            <file>file:/C:/Users/RJ/Documents/NetBeansProjects/VentaAcciones/web/usuario/login.xhtml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

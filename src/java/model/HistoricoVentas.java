@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HistoricoVentas.findAll", query = "SELECT h FROM HistoricoVentas h")
-    , @NamedQuery(name = "HistoricoVentas.findByIdVentas", query = "SELECT h FROM HistoricoVentas h WHERE h.idVentas = :idVentas")
+    , @NamedQuery(name = "HistoricoVentas.findByIdVentas", query = "SELECT h FROM HistoricoVentas h WHERE h.idVentas = :idVentas " )
     , @NamedQuery(name = "HistoricoVentas.findByFechaVenta", query = "SELECT h FROM HistoricoVentas h WHERE h.fechaVenta = :fechaVenta")
     , @NamedQuery(name = "HistoricoVentas.findByEstadoActual", query = "SELECT h FROM HistoricoVentas h WHERE h.estadoActual = :estadoActual")
     , @NamedQuery(name = "HistoricoVentas.findByValorVenta", query = "SELECT h FROM HistoricoVentas h WHERE h.valorVenta = :valorVenta")
@@ -82,6 +82,8 @@ public class HistoricoVentas implements Serializable {
     @ManyToOne
     private Usuario idEmpresa;
 
+    
+    
     public HistoricoVentas() {
     }
 

@@ -5,6 +5,7 @@ import model.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,6 +29,7 @@ public class HistoricoVentasController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    List<HistoricoVentas> hv_descipcion;
     public HistoricoVentasController() {
     }
 
@@ -185,10 +187,35 @@ public class HistoricoVentasController implements Serializable {
         }
         return items;
     }
-    
-     public List<HistoricoVentas> getByDescription() {
+     public String ShowHistorico() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String parameter = params.get("desc"); 
+        this.hv_descipcion= getFacade().findMovementActionsbydescpcion(parameter);
+       // this.current = accions.get(0);
+       // int number=accions.size();
+        //this.Number_Accions=number;
+        
+        //?faces-redirect=true
+       // return "/accion/View?faces-redirect=true";
+       
+      // return hv;
+      return "/accion/View?faces-redirect=true";
+        
+    }
+
+    public List<HistoricoVentas> getHv_descipcion() {
+        return hv_descipcion;
+    }
+
+    public void setHv_descipcion(List<HistoricoVentas> hv_descipcion) {
+        this.hv_descipcion = hv_descipcion;
+    }
+     
+     
+     public List<HistoricoVentas> GetByDescription(String Descripcion) {
          System.out.println("His-----------------------------------------------------Historico Ventas: "+current.getIdAccion().getDescripcion());
-        return getFacade().findMovementActions(current.getIdAccion().getIdAccion());
+        return getFacade().findMovementActionsbydescpcion(current.getIdAccion().getDescripcion());
     }
 
     private void recreateModel() {

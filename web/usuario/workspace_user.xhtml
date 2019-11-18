@@ -77,9 +77,7 @@
                             </f:facet>
                             <h:commandLink class="btn btn-info" action="#{accionController.prepareView}" value="Visualizar"/>
                             <h:outputText value=" "/>
-                            <h:commandLink class="btn btn-warning" action="#{accionController.prepareEdit}" value="Modificar" rendered="#{usuarioController.LoggedUser().idTipousuario.descripcion=='Empresa'}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink class="btn btn-danger" action="#{accionController.destroy}" value="Eliminar" rendered="#{usuarioController.LoggedUser().idTipousuario.descripcion=='Empresa'}"/>
+                            
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
